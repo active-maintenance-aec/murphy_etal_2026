@@ -1,0 +1,49 @@
+ad_id,title,valence,emotion_valence
+4,Scam,Anti Trump,negative
+6,Plain Wrong,Anti Trump,negative
+8,Quotes,Anti Trump,negative
+9,Real Life,Pro Clinton,positive
+11,America,Pro Sanders,positive
+12,All the Good,Pro Clinton,positive
+17,Erica,Pro Sanders,both
+18,I’m with him,Pro Clinton,positive
+20,Math,Pro Cruz,positive
+21,Suggest,Pro Kasich,both
+23,Not Easy,Pro Cruz,negative
+24,Broken,Pro Trump,positive
+26,Unifier,Anti Trump,negative
+27,Harrassment,Anti Trump,negative
+30,Love/Kindness,Pro Clinton,positive
+33,Speak,Anti Trump,negative
+38,Extreme Makeover,Anti Trump,negative
+39,Grace,Anti Trump,negative
+42,Moments,Pro Clinton,positive
+44,Tested,Anti Trump,negative
+45,Stop Clinton,Anti Clinton,negative
+47,Role Model,Anti Trump,negative
+48,Same Old,Anti Clinton,negative
+50,Someplace,Anti Trump,negative
+51,Outsource,Anti Clinton,negative
+54,Unfit,Anti Trump,negative
+56,Depend,Pro Clinton,positive
+57,2 Americas: Immigration,Anti Clinton,both
+58,2 Americas: Economy,Anti Clinton,both
+59,Everything,Anti Trump,negative
+60,Sacrifice,Anti Trump,negative
+61,Deplorables,Anti Clinton,negative
+62,Agree,Anti Trump,negative
+63,Mirrors,Anti Trump,negative
+64,Defenseless,Anti Clinton,negative
+65,50-pts?,Anti Clinton,negative
+66,Arrogant,Anti Trump,negative
+67,Change,Anti Clinton,both
+68,America’s Bullies,Anti Trump,positive
+69,Laura,Anti Clinton,negative
+70,Captain Khan,Anti Trump,negative
+71,Example,Anti Trump,positive
+72,Consumer Benefit,Pro Trump,positive
+74,Movement,Pro Trump,positive
+75,Families,Anti Trump,positive
+76,Unfit to Serve,Anti Clinton,negative
+77,Daughters,Anti Trump,negative
+99,Sacrifice,Anti Trump,negative

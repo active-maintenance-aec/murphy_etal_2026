@@ -12,3 +12,5 @@ values_in_spans,"entry 1, filed values",passed,passed
 values_in_spans,"entry 1, altered values",halted,halted
 values_in_spans,"entry 2, filed values",passed,passed
 values_in_spans,"entry 2, altered values",halted,halted
+values_in_spans,"entry 3, filed values",passed,passed
+values_in_spans,"entry 3, altered values",halted,halted

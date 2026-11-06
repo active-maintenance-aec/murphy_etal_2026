@@ -116,13 +116,17 @@ entries <- tribble(
   str_glue("The deposit's `exps.rds` assigns {format(two_ad_n, big.mark = ',')} respondents to the two-ad arm, one row each, and the analysis frame `observed_pairwise_frame.rds` holds all of them. Of these, {format(two_ad_compared, big.mark = ',')} enter the favorability comparison because they rated both ads. No column of that arm has 5,070 non-missing values, so the source of the printed count is unknown."),
   "two_ad_n", as.character(two_ad_n),
 
-  3, "description", "pipeline", "note",
+  3, "quantity", "pipeline", "correction",
   "Turnout and issue estimates take the sign of the ad's valence",
-  "published pp. 10 to 11, Figure 4; appendix Tables C.3 to C.5, C.8 to C.10, and C.13 to C.15",
-  "The slopes of all four meta-regression lines are close to zero and are not statistically significant.",
-  NA_character_,
-  str_glue("The sentence survives, and the numbers behind it do not. `estimate_all_cates.R` multiplies every outcome by -1 for an anti ad, which suits candidate favorability and vote choice. It also flips turnout, so an anti ad that raises turnout plots as lowering it, in {sign_count('Turnout Intentions')} of {sign_total('Turnout Intentions')} estimates. For issues the deposit's `ad_id_to_base_by_hand.csv` carries a `direction` column that no script reads, and it disagrees with the sign used in {sign_count('Target Issue Support')} of {sign_total('Target Issue Support')} estimates. Without the turnout flip and with `direction` on issues, Figure 4's labels change: on turnout, {shift('Turnout Intentions', 'negative_index', 'sign')} and {shift('Turnout Intentions', 'positive_index', 'sign')}; on issues, {shift('Target Issue Support', 'negative_index', 'sign')} and {shift('Target Issue Support', 'positive_index', 'sign')}. All four remain indistinguishable from zero. An ad might be meant to demobilize, so the article's text cannot settle the intended sign on turnout, and this item corrects nothing."),
-  "fig4_issue_neg_est;fig4_issue_pos_est;fig4_turnout_neg_est;fig4_turnout_pos_est", NA_character_,
+  "published p. 11, Figure 4, the label in each panel; the data are also in appendix Tables C.3 to C.5, C.8 to C.10, and C.13 to C.15",
+  "Target Issue Support, Negative Index: [[0.052 (0.059)]]. Turnout Intentions, Negative Index: [[-0.017 (0.021)]]. Target Issue Support, Positive Index: [[-0.039 (0.041)]]. Turnout Intentions, Positive Index: [[0.064 (0.035)]].",
+  str_glue("Target Issue Support, Negative Index: [[{label('sign', 'Target Issue Support', 'negative_index')}]]. Turnout Intentions, Negative Index: [[{label('sign', 'Turnout Intentions', 'negative_index')}]]. Target Issue Support, Positive Index: [[{label('sign', 'Target Issue Support', 'positive_index')}]]. Turnout Intentions, Positive Index: [[{label('sign', 'Turnout Intentions', 'positive_index')}]]."),
+  str_glue("`estimate_all_cates.R` multiplies every outcome by -1 for an anti ad, which suits candidate favorability and vote choice. It also flips turnout, so an anti ad that raises turnout plots as lowering it, in {sign_count('Turnout Intentions')} of {sign_total('Turnout Intentions')} estimates. For issues the deposit's `ad_id_to_base_by_hand.csv` carries a `direction` column that no script reads, and it disagrees with the sign used in {sign_count('Target Issue Support')} of {sign_total('Target Issue Support')} estimates. The corrected labels refit the same CATEs with no flip on turnout and with `direction` on issues (`maintained/corrected_slopes.R`). This correction counts a rise in turnout intentions as a rise whichever candidate the ad attacks, although an ad might be meant to demobilize. All four slopes remain indistinguishable from zero, so the sentence on p. 10 that the slopes of all four meta-regression lines are close to zero and not statistically significant stands. The appendix tables were not refit, and their turnout and issue columns carry the published signs."),
+  "fig4_issue_neg_est;fig4_issue_neg_se;fig4_turnout_neg_est;fig4_turnout_neg_se;fig4_issue_pos_est;fig4_issue_pos_se;fig4_turnout_pos_est;fig4_turnout_pos_se",
+  str_c(c(sprintf("%.3f", slope("sign", "Target Issue Support", "negative_index")), sprintf("%.3f", slope("sign", "Target Issue Support", "negative_index", "std_error")),
+          sprintf("%.3f", slope("sign", "Turnout Intentions", "negative_index")), sprintf("%.3f", slope("sign", "Turnout Intentions", "negative_index", "std_error")),
+          sprintf("%.3f", slope("sign", "Target Issue Support", "positive_index")), sprintf("%.3f", slope("sign", "Target Issue Support", "positive_index", "std_error")),
+          sprintf("%.3f", slope("sign", "Turnout Intentions", "positive_index")), sprintf("%.3f", slope("sign", "Turnout Intentions", "positive_index", "std_error"))), collapse = ";"),
 
   4, "description", "reading", "note",
   "Note 5 on the primary ads",
@@ -212,7 +216,7 @@ english_count <- c("one", "two", "three", "four", "five", "six")[sum(entries$for
 bold <- function(x) str_replace_all(x, "\\[\\[(.*?)\\]\\]", "**\\1**")
 emit_entry <- function(n) {
   e <- entries |> filter(entry == n)
-  cat("\n\n## ", e$entry, ". ", e$title, "\n\nPublished, ", e$location, ":\n\n> ", bold(e$published), sep = "")
+  cat("\n\n## ", e$entry, ". ", e$title, "\n\nPublished, ", str_remove(e$location, "^published "), ":\n\n> ", bold(e$published), sep = "")
   if (e$form != "note") cat("\n\nCorrected:\n\n> ", bold(e$corrected), sep = "")
   cat("\n\n", e$note, "\n", sep = "")
 }

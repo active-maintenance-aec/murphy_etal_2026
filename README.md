@@ -117,15 +117,15 @@ is one of those rows, so the summary cannot fail on it.
 
 # Errata
 
-The note lists 13 entries: 2 corrected quantities, 7 brief corrections
-to the text, and 4 notes that correct nothing because neither the page
+The note lists 13 entries: 3 corrected quantities, 7 brief corrections
+to the text, and 3 notes that correct nothing because neither the page
 nor the deposit settles what was intended.
 
 | Entry | Item | Form |
 |---:|:---|:---|
 | 1 | Sanders favorability is rescaled twice | correction |
 | 2 | The two-advertisement sample | correction |
-| 3 | Turnout and issue estimates take the sign of the ad’s valence | note |
+| 3 | Turnout and issue estimates take the sign of the ad’s valence | correction |
 | 4 | Note 5 on the primary ads | note |
 | 5 | Three attack ads are coded positive | note |
 | 6 | Whose favorability | brief |
@@ -190,7 +190,7 @@ cell.
 | Table D.16        | 48                | 48       |
 
 `ground_truth/negative_controls.R` breaks one input at a time and
-requires the matching gate to stop the build. All 13 of 13 runs behave
+requires the matching gate to stop the build. All 15 of 15 runs behave
 as required. These runs show that the gates fire on these faults and say
 nothing about faults not tried.
 

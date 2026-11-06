@@ -1,6 +1,8 @@
 # murphy_etal_2026/maintained/corrected_slopes.R
-# Output: maintained/output/corrected_slopes.csv, maintained/output/sign_audit.csv
-# Depends on: maintained/archive_run/ (the deposit, rerun by maintained/run_archive.R)
+# Output: maintained/output/corrected_slopes.csv, maintained/output/sign_audit.csv,
+#   maintained/output/corrected_favorability_tables.csv
+# Depends on: maintained/archive_run/ (the deposit, rerun by maintained/run_archive.R),
+#   ground_truth/published_appendix_values.csv
 # Description: Refit the published meta-regressions on the deposit's own CATEs under three
 #   corrections, leaving the deposit's pipeline as published:
 #   sanders    favorBS_rev is rescaled twice in clean_exps.R, so its CATEs carry a factor of
@@ -113,3 +115,91 @@ corrected_slopes <- imap(specifications, \(scale_factor, name) {
   list_rbind()
 
 write_csv(corrected_slopes, here::here("maintained", "output", "corrected_slopes.csv"))
+
+# The four favorability tables, refit column by column under the Sanders correction ----
+table_indices <- c(C.1 = "positive_index", C.6 = "negative_index", C.11 = "intended", E.17 = "rating_index")
+table_columns <- tribble(
+  ~column, ~pid, ~side, ~controls,
+  "Dem (PD)", "Democrat", "Pro Democrat", FALSE,
+  "Dem (PR)", "Democrat", "Pro Republican", FALSE,
+  "Ind (PD)", "Independent", "Pro Democrat", FALSE,
+  "Ind (PR)", "Independent", "Pro Republican", FALSE,
+  "Rep (PD)", "Republican", "Pro Democrat", FALSE,
+  "Rep (PR)", "Republican", "Pro Republican", FALSE,
+  "All", NA, NA, FALSE,
+  "All (2)", NA, NA, TRUE
+) |>
+  mutate(column_order = row_number())
+
+panel_table <- panel_data |>
+  mutate(valence = if_else(ad_valence %in% c("Pro Trump", "Anti Clinton", "Pro Kasich", "Pro Cruz"),
+                           "Pro Republican", "Pro Democrat"))
+
+fit_column <- function(index_name, scale_factor, pid, side, controls) {
+  rows <- which(panel_table$dv == "Favorability" &
+                  (is.na(pid) | panel_table$pid_3_pre == pid) &
+                  (is.na(side) | panel_table$valence == side))
+  panel <- panel_table[rows, ] |>
+    mutate(rating_estimate = .data[[index_name]], y = estimate * scale_factor[rows])
+  scaling <- Diagonal(x = scale_factor[rows])
+  fit <- rma.mv(yi = y, mods = if (controls) ~ rating_estimate + valence + pid_3_pre else ~ rating_estimate,
+                random = ~ 1 | id, V = as.matrix(scaling %*% vcov_cates[rows, rows] %*% scaling), data = panel) |>
+    robust(cluster = date, clubSandwich = TRUE)
+  tibble(term = rownames(fit$beta), estimate = fit$beta[, 1], std_error = fit$se, p_value = fit$pval,
+         q_test_p = fit$QEp, observations = fit$k)
+}
+
+fit_table <- function(table_name, scale_factor, specification) {
+  table_columns |>
+    mutate(fit = pmap(list(pid, side, controls), \(p, s, k) fit_column(table_indices[[table_name]], scale_factor, p, s, k))) |>
+    select(column, column_order, fit) |>
+    unnest(fit) |>
+    mutate(table = table_name, specification = specification)
+}
+
+favorability_tables <- names(table_indices) |>
+  map(\(table_name) bind_rows(fit_table(table_name, specifications$published, "published"),
+                              fit_table(table_name, specifications$sanders, "sanders"))) |>
+  list_rbind()
+
+print_cell <- \(x) str_replace(sprintf("%.3f", x), "^-(0\\.000)$", "\\1")
+term_order <- c("intrcpt", "rating_estimate", "valencePro Republican", "pid_3_preIndependent", "pid_3_preRepublican")
+
+table_cells <- favorability_tables |>
+  mutate(term_order = match(term, term_order),
+         estimate_cell = str_c(print_cell(estimate), if_else(p_value < 0.05, "*", "")),
+         std_error_cell = print_cell(std_error))
+
+coefficient_cells <- table_cells |>
+  pivot_longer(c(estimate_cell, std_error_cell), names_to = "part", values_to = "value") |>
+  mutate(part_order = if_else(part == "estimate_cell", 1, 2)) |>
+  arrange(table, specification, term_order, part_order, column_order) |>
+  select(table, specification, column, term, part, value)
+
+footer_cells <- table_cells |>
+  distinct(table, specification, column, column_order, observations, q_test_p) |>
+  arrange(table, specification, column_order) |>
+  mutate(observations = as.character(observations), q_test_p = print_cell(q_test_p)) |>
+  pivot_longer(c(observations, q_test_p), names_to = "term", values_to = "value") |>
+  mutate(term_order = if_else(term == "observations", 1, 2), part = "footer") |>
+  arrange(table, specification, term_order, column_order) |>
+  select(table, specification, column, term, part, value)
+
+all_cells <- bind_rows(coefficient_cells, footer_cells) |>
+  mutate(position = row_number(), .by = c(table, specification))
+
+# The published specification must return every cell the appendix prints in these tables.
+published_cells <- read_csv(here::here("ground_truth", "published_appendix_values.csv"),
+                            col_types = cols(table = col_character(), position = col_integer(),
+                                             value_paper = col_character())) |>
+  filter(table %in% names(table_indices)) |>
+  mutate(value_paper = str_replace(value_paper, "^-(0\\.000\\*?)$", "\\1"))
+
+table_comparison <- all_cells |>
+  pivot_wider(id_cols = c(table, position, column, term, part), names_from = specification, values_from = value) |>
+  left_join(published_cells, by = join_by(table, position), relationship = "one-to-one")
+
+stopifnot(nrow(table_comparison) == nrow(published_cells),
+          all(table_comparison$published == table_comparison$value_paper))
+
+write_csv(table_comparison, here::here("maintained", "output", "corrected_favorability_tables.csv"))

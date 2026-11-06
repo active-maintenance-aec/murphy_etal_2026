@@ -1,0 +1,61 @@
+file,verdict,measure
+figures/figure_1_emotion_by_partisanship.pdf,differs,NA
+figures/figure_1_emotion_by_partisanship.png,share of channel values that differ is measure,2.393162393162393e-5
+figures/figure_2_emotion_cate_favorability_vote.pdf,identical but for timestamp and R version,NA
+figures/figure_2_emotion_cate_favorability_vote.png,share of channel values that differ is measure,1.3929432390970853e-4
+figures/figure_3_intended_emotion_cate_favorability_vote.pdf,identical but for timestamp and R version,NA
+figures/figure_3_intended_emotion_cate_favorability_vote.png,share of channel values that differ is measure,1.0990819879708768e-4
+figures/figure_4_emotion_cate_issue_turnout.pdf,identical but for timestamp and R version,NA
+figures/figure_4_emotion_cate_issue_turnout.png,share of channel values that differ is measure,1.259697567389875e-4
+figures/figure_a1_emotion_scree.pdf,identical but for timestamp and R version,NA
+figures/figure_a1_emotion_scree.png,byte-identical,NA
+figures/figure_a2_emotion_correlations.pdf,differs,NA
+figures/figure_a2_emotion_correlations.png,share of channel values that differ is measure,0.10974082840236686
+figures/figure_b3_emotion_by_party.pdf,identical but for timestamp and R version,NA
+figures/figure_b3_emotion_by_party.png,byte-identical,NA
+figures/figure_c4_stretch_issue_turnout_emotion.pdf,identical but for timestamp and R version,NA
+figures/figure_c4_stretch_issue_turnout_emotion.png,share of channel values that differ is measure,1.328950252027175e-4
+figures/figure_c5_issue_turnout_intended_emotion.pdf,identical but for timestamp and R version,NA
+figures/figure_c5_issue_turnout_intended_emotion.png,share of channel values that differ is measure,1.1750553972776195e-4
+figures/figure_c6_stretch_issue_turnout_intended_emotion.pdf,identical but for timestamp and R version,NA
+figures/figure_c6_stretch_issue_turnout_intended_emotion.png,share of channel values that differ is measure,1.0129787907565685e-4
+figures/figure_e10_cates_from_ratings.pdf,identical but for timestamp and R version,NA
+figures/figure_e10_cates_from_ratings.png,share of channel values that differ is measure,1.0729783037475345e-4
+figures/figure_e11_individual_accuracy.pdf,identical but for timestamp and R version,NA
+figures/figure_e11_individual_accuracy.png,byte-identical,NA
+figures/figure_e12_group_accuracy.pdf,identical but for timestamp and R version,NA
+figures/figure_e12_group_accuracy.png,byte-identical,NA
+figures/figure_e7_rating_correlations.pdf,differs,NA
+figures/figure_e7_rating_correlations.png,share of channel values that differ is measure,0.13133925049309664
+figures/figure_e8_rating_scree.pdf,identical but for timestamp and R version,NA
+figures/figure_e8_rating_scree.png,byte-identical,NA
+figures/figure_e9_ratings_by_party.pdf,identical but for timestamp and R version,NA
+figures/figure_e9_ratings_by_party.png,byte-identical,NA
+session_info.txt,"environment record, not compared",NA
+tables/cate_counts_by_outcome.csv,byte-identical,NA
+tables/emotion_scale_reliability.csv,byte-identical,NA
+tables/emotion_scree_eigenvalues.csv,byte-identical,NA
+tables/figure_2_meta_estimates.csv,numbers differ by at most measure,1.5551999688057094e-9
+tables/figure_3_meta_estimates.csv,numbers differ by at most measure,9.607495354835294e-12
+tables/figure_4_meta_estimates.csv,numbers differ by at most measure,1.5551999688057094e-9
+tables/figure_e10_meta_estimates.csv,numbers differ by at most measure,6.409851122102239e-11
+tables/rating_scale_reliability.csv,byte-identical,NA
+tables/rating_scree_eigenvalues.csv,byte-identical,NA
+tables/table_c1_favorability_positive_emotion.tex,byte-identical,NA
+tables/table_c10_issue_stretch_negative_emotion.tex,byte-identical,NA
+tables/table_c11_favorability_intended_emotion.tex,byte-identical,NA
+tables/table_c12_vote_choice_intended_emotion.tex,byte-identical,NA
+tables/table_c13_turnout_intended_emotion.tex,byte-identical,NA
+tables/table_c14_issue_intended_emotion.tex,byte-identical,NA
+tables/table_c15_issue_stretch_intended_emotion.tex,byte-identical,NA
+tables/table_c2_vote_choice_positive_emotion.tex,byte-identical,NA
+tables/table_c3_turnout_positive_emotion.tex,byte-identical,NA
+tables/table_c4_issue_positive_emotion.tex,byte-identical,NA
+tables/table_c5_issue_stretch_positive_emotion.tex,byte-identical,NA
+tables/table_c6_favorability_negative_emotion.tex,byte-identical,NA
+tables/table_c7_vote_choice_negative_emotion.tex,byte-identical,NA
+tables/table_c8_turnout_negative_emotion.tex,byte-identical,NA
+tables/table_c9_issue_negative_emotion.tex,byte-identical,NA
+tables/table_d16_ad_emotion_coding.tex,identical but for its comment header,NA
+tables/table_e17_favorability_ratings.tex,byte-identical,NA
+tables/table_e18_vote_choice_ratings.tex,byte-identical,NA

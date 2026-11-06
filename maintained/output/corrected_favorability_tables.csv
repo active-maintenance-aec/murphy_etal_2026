@@ -1,0 +1,217 @@
+table,position,column,term,part,published,sanders,value_paper
+C.1,1,Dem (PD),intrcpt,estimate_cell,0.034*,0.024,0.034*
+C.1,2,Dem (PR),intrcpt,estimate_cell,-0.012,-0.012,-0.012
+C.1,3,Ind (PD),intrcpt,estimate_cell,0.013,0.011,0.013
+C.1,4,Ind (PR),intrcpt,estimate_cell,-0.078,-0.078,-0.078
+C.1,5,Rep (PD),intrcpt,estimate_cell,0.014,0.016,0.014
+C.1,6,Rep (PR),intrcpt,estimate_cell,0.003,0.003,0.003
+C.1,7,All,intrcpt,estimate_cell,0.007,0.006,0.007
+C.1,8,All (2),intrcpt,estimate_cell,0.018*,0.017,0.018*
+C.1,9,Dem (PD),intrcpt,std_error_cell,0.011,0.016,0.011
+C.1,10,Dem (PR),intrcpt,std_error_cell,0.050,0.050,0.050
+C.1,11,Ind (PD),intrcpt,std_error_cell,0.026,0.035,0.026
+C.1,12,Ind (PR),intrcpt,std_error_cell,0.050,0.050,0.050
+C.1,13,Rep (PD),intrcpt,std_error_cell,0.011,0.016,0.011
+C.1,14,Rep (PR),intrcpt,std_error_cell,0.012,0.012,0.012
+C.1,15,All,intrcpt,std_error_cell,0.005,0.007,0.005
+C.1,16,All (2),intrcpt,std_error_cell,0.008,0.008,0.008
+C.1,17,Dem (PD),rating_estimate,estimate_cell,-0.039,0.015,-0.039
+C.1,18,Dem (PR),rating_estimate,estimate_cell,0.026,0.026,0.026
+C.1,19,Ind (PD),rating_estimate,estimate_cell,0.000,0.048,0.000
+C.1,20,Ind (PR),rating_estimate,estimate_cell,0.381,0.381,0.381
+C.1,21,Rep (PD),rating_estimate,estimate_cell,-0.030,-0.018,-0.030
+C.1,22,Rep (PR),rating_estimate,estimate_cell,-0.006,-0.006,-0.006
+C.1,23,All,rating_estimate,estimate_cell,0.008,0.026,0.008
+C.1,24,All (2),rating_estimate,estimate_cell,-0.005,0.025,-0.005
+C.1,25,Dem (PD),rating_estimate,std_error_cell,0.025,0.055,0.025
+C.1,26,Dem (PR),rating_estimate,std_error_cell,0.453,0.453,0.453
+C.1,27,Ind (PD),rating_estimate,std_error_cell,0.087,0.209,0.087
+C.1,28,Ind (PR),rating_estimate,std_error_cell,0.220,0.220,0.220
+C.1,29,Rep (PD),rating_estimate,std_error_cell,0.047,0.088,0.047
+C.1,30,Rep (PR),rating_estimate,std_error_cell,0.036,0.036,0.036
+C.1,31,All,rating_estimate,std_error_cell,0.014,0.025,0.014
+C.1,32,All (2),rating_estimate,std_error_cell,0.017,0.026,0.017
+C.1,33,All (2),valencePro Republican,estimate_cell,-0.017,-0.026*,-0.017
+C.1,34,All (2),valencePro Republican,std_error_cell,0.009,0.011,0.009
+C.1,35,All (2),pid_3_preIndependent,estimate_cell,-0.012,-0.003,-0.012
+C.1,36,All (2),pid_3_preIndependent,std_error_cell,0.013,0.015,0.013
+C.1,37,All (2),pid_3_preRepublican,estimate_cell,-0.004,-0.001,-0.004
+C.1,38,All (2),pid_3_preRepublican,std_error_cell,0.007,0.008,0.007
+C.11,1,Dem (PD),intrcpt,estimate_cell,0.020,0.014,0.020
+C.11,2,Dem (PR),intrcpt,estimate_cell,-0.003,-0.003,-0.003
+C.11,3,Ind (PD),intrcpt,estimate_cell,0.000,0.004,0.000
+C.11,4,Ind (PR),intrcpt,estimate_cell,-0.088*,-0.088*,-0.088*
+C.11,5,Rep (PD),intrcpt,estimate_cell,0.012*,0.014,0.012*
+C.11,6,Rep (PR),intrcpt,estimate_cell,0.034,0.034,0.034
+C.11,7,All,intrcpt,estimate_cell,0.010*,0.015*,0.010*
+C.11,8,All (2),intrcpt,estimate_cell,0.018*,0.023*,0.018*
+C.11,9,Dem (PD),intrcpt,std_error_cell,0.022,0.021,0.022
+C.11,10,Dem (PR),intrcpt,std_error_cell,0.019,0.019,0.019
+C.11,11,Ind (PD),intrcpt,std_error_cell,0.022,0.029,0.022
+C.11,12,Ind (PR),intrcpt,std_error_cell,0.032,0.032,0.032
+C.11,13,Rep (PD),intrcpt,std_error_cell,0.004,0.008,0.004
+C.11,14,Rep (PR),intrcpt,std_error_cell,0.032,0.032,0.032
+C.11,15,All,intrcpt,std_error_cell,0.004,0.005,0.004
+C.11,16,All (2),intrcpt,std_error_cell,0.007,0.008,0.007
+C.11,17,Dem (PD),rating_estimate,estimate_cell,0.002,0.047,0.002
+C.11,18,Dem (PR),rating_estimate,estimate_cell,-0.029,-0.029,-0.029
+C.11,19,Ind (PD),rating_estimate,estimate_cell,0.066,0.094,0.066
+C.11,20,Ind (PR),rating_estimate,estimate_cell,0.228*,0.228*,0.228*
+C.11,21,Rep (PD),rating_estimate,estimate_cell,-0.035,-0.045,-0.035
+C.11,22,Rep (PR),rating_estimate,estimate_cell,-0.073,-0.073,-0.073
+C.11,23,All,rating_estimate,estimate_cell,-0.004,-0.012,-0.004
+C.11,24,All (2),rating_estimate,estimate_cell,-0.005,0.000,-0.005
+C.11,25,Dem (PD),rating_estimate,std_error_cell,0.049,0.056,0.049
+C.11,26,Dem (PR),rating_estimate,std_error_cell,0.055,0.055,0.055
+C.11,27,Ind (PD),rating_estimate,std_error_cell,0.077,0.108,0.077
+C.11,28,Ind (PR),rating_estimate,std_error_cell,0.057,0.057,0.057
+C.11,29,Rep (PD),rating_estimate,std_error_cell,0.017,0.029,0.017
+C.11,30,Rep (PR),rating_estimate,std_error_cell,0.056,0.056,0.056
+C.11,31,All,rating_estimate,std_error_cell,0.013,0.021,0.013
+C.11,32,All (2),rating_estimate,std_error_cell,0.013,0.019,0.013
+C.11,33,All (2),valencePro Republican,estimate_cell,-0.016,-0.025*,-0.016
+C.11,34,All (2),valencePro Republican,std_error_cell,0.008,0.010,0.008
+C.11,35,All (2),pid_3_preIndependent,estimate_cell,-0.012,-0.005,-0.012
+C.11,36,All (2),pid_3_preIndependent,std_error_cell,0.013,0.015,0.013
+C.11,37,All (2),pid_3_preRepublican,estimate_cell,-0.004,-0.003,-0.004
+C.11,38,All (2),pid_3_preRepublican,std_error_cell,0.007,0.009,0.007
+C.6,1,Dem (PD),intrcpt,estimate_cell,0.005,0.020,0.005
+C.6,2,Dem (PR),intrcpt,estimate_cell,0.015,0.015,0.015
+C.6,3,Ind (PD),intrcpt,estimate_cell,-0.021,-0.040,-0.021
+C.6,4,Ind (PR),intrcpt,estimate_cell,-0.118,-0.118,-0.118
+C.6,5,Rep (PD),intrcpt,estimate_cell,-0.020,-0.017,-0.020
+C.6,6,Rep (PR),intrcpt,estimate_cell,0.021,0.021,0.021
+C.6,7,All,intrcpt,estimate_cell,0.004,0.009,0.004
+C.6,8,All (2),intrcpt,estimate_cell,0.007,0.018,0.007
+C.6,9,Dem (PD),intrcpt,std_error_cell,0.006,0.024,0.006
+C.6,10,Dem (PR),intrcpt,std_error_cell,0.032,0.032,0.032
+C.6,11,Ind (PD),intrcpt,std_error_cell,0.036,0.068,0.036
+C.6,12,Ind (PR),intrcpt,std_error_cell,0.113,0.113,0.113
+C.6,13,Rep (PD),intrcpt,std_error_cell,0.027,0.050,0.027
+C.6,14,Rep (PR),intrcpt,std_error_cell,0.027,0.027,0.027
+C.6,15,All,intrcpt,std_error_cell,0.005,0.014,0.005
+C.6,16,All (2),intrcpt,std_error_cell,0.006,0.015,0.006
+C.6,17,Dem (PD),rating_estimate,estimate_cell,0.052*,0.021,0.052*
+C.6,18,Dem (PR),rating_estimate,estimate_cell,-0.060,-0.060,-0.060
+C.6,19,Ind (PD),rating_estimate,estimate_cell,0.114,0.176,0.114
+C.6,20,Ind (PR),rating_estimate,estimate_cell,0.302,0.302,0.302
+C.6,21,Rep (PD),rating_estimate,estimate_cell,0.079,0.080,0.079
+C.6,22,Rep (PR),rating_estimate,estimate_cell,-0.046,-0.046,-0.046
+C.6,23,All,rating_estimate,estimate_cell,0.014,0.008,0.014
+C.6,24,All (2),rating_estimate,estimate_cell,0.034,0.014,0.034
+C.6,25,Dem (PD),rating_estimate,std_error_cell,0.023,0.053,0.023
+C.6,26,Dem (PR),rating_estimate,std_error_cell,0.102,0.102,0.102
+C.6,27,Ind (PD),rating_estimate,std_error_cell,0.126,0.203,0.126
+C.6,28,Ind (PR),rating_estimate,std_error_cell,0.288,0.288,0.288
+C.6,29,Rep (PD),rating_estimate,std_error_cell,0.075,0.126,0.075
+C.6,30,Rep (PR),rating_estimate,std_error_cell,0.050,0.050,0.050
+C.6,31,All,rating_estimate,std_error_cell,0.017,0.034,0.017
+C.6,32,All (2),rating_estimate,std_error_cell,0.020,0.034,0.020
+C.6,33,All (2),valencePro Republican,estimate_cell,-0.020*,-0.025*,-0.020*
+C.6,34,All (2),valencePro Republican,std_error_cell,0.009,0.011,0.009
+C.6,35,All (2),pid_3_preIndependent,estimate_cell,-0.010,-0.004,-0.010
+C.6,36,All (2),pid_3_preIndependent,std_error_cell,0.013,0.015,0.013
+C.6,37,All (2),pid_3_preRepublican,estimate_cell,-0.006,-0.003,-0.006
+C.6,38,All (2),pid_3_preRepublican,std_error_cell,0.006,0.008,0.006
+E.17,1,Dem (PD),intrcpt,estimate_cell,-0.188*,-0.214*,-0.188*
+E.17,2,Dem (PR),intrcpt,estimate_cell,-0.087,-0.087,-0.087
+E.17,3,Ind (PD),intrcpt,estimate_cell,-0.093,-0.209*,-0.093
+E.17,4,Ind (PR),intrcpt,estimate_cell,-0.414*,-0.414*,-0.414*
+E.17,5,Rep (PD),intrcpt,estimate_cell,0.030,0.026,0.030
+E.17,6,Rep (PR),intrcpt,estimate_cell,0.054,0.054,0.054
+E.17,7,All,intrcpt,estimate_cell,-0.010,-0.013,-0.010
+E.17,8,All (2),intrcpt,estimate_cell,-0.007,-0.006,-0.007
+E.17,9,Dem (PD),intrcpt,std_error_cell,0.082,0.088,0.082
+E.17,10,Dem (PR),intrcpt,std_error_cell,0.073,0.073,0.073
+E.17,11,Ind (PD),intrcpt,std_error_cell,0.050,0.068,0.050
+E.17,12,Ind (PR),intrcpt,std_error_cell,0.115,0.115,0.115
+E.17,13,Rep (PD),intrcpt,std_error_cell,0.019,0.036,0.019
+E.17,14,Rep (PR),intrcpt,std_error_cell,0.056,0.056,0.056
+E.17,15,All,intrcpt,std_error_cell,0.009,0.011,0.009
+E.17,16,All (2),intrcpt,std_error_cell,0.011,0.012,0.011
+E.17,17,Dem (PD),rating_estimate,estimate_cell,0.292*,0.338*,0.292*
+E.17,18,Dem (PR),rating_estimate,estimate_cell,0.209,0.209,0.209
+E.17,19,Ind (PD),rating_estimate,estimate_cell,0.223,0.507*,0.223
+E.17,20,Ind (PR),rating_estimate,estimate_cell,0.780*,0.780*,0.780*
+E.17,21,Rep (PD),rating_estimate,estimate_cell,-0.051,-0.035,-0.051
+E.17,22,Rep (PR),rating_estimate,estimate_cell,-0.075,-0.075,-0.075
+E.17,23,All,rating_estimate,estimate_cell,0.034*,0.044*,0.034*
+E.17,24,All (2),rating_estimate,estimate_cell,0.036,0.050*,0.036
+E.17,25,Dem (PD),rating_estimate,std_error_cell,0.117,0.127,0.117
+E.17,26,Dem (PR),rating_estimate,std_error_cell,0.177,0.177,0.177
+E.17,27,Ind (PD),rating_estimate,std_error_cell,0.104,0.171,0.104
+E.17,28,Ind (PR),rating_estimate,std_error_cell,0.227,0.227,0.227
+E.17,29,Rep (PD),rating_estimate,std_error_cell,0.039,0.100,0.039
+E.17,30,Rep (PR),rating_estimate,std_error_cell,0.078,0.078,0.078
+E.17,31,All,rating_estimate,std_error_cell,0.016,0.020,0.016
+E.17,32,All (2),rating_estimate,std_error_cell,0.019,0.022,0.019
+E.17,33,All (2),valencePro Republican,estimate_cell,-0.018,-0.028*,-0.018
+E.17,34,All (2),valencePro Republican,std_error_cell,0.009,0.011,0.009
+E.17,35,All (2),pid_3_preIndependent,estimate_cell,-0.005,0.002,-0.005
+E.17,36,All (2),pid_3_preIndependent,std_error_cell,0.012,0.015,0.012
+E.17,37,All (2),pid_3_preRepublican,estimate_cell,0.002,0.002,0.002
+E.17,38,All (2),pid_3_preRepublican,std_error_cell,0.006,0.008,0.006
+C.1,39,Dem (PD),observations,footer,41,41,41
+C.1,40,Dem (PR),observations,footer,17,17,17
+C.1,41,Ind (PD),observations,footer,41,41,41
+C.1,42,Ind (PR),observations,footer,17,17,17
+C.1,43,Rep (PD),observations,footer,41,41,41
+C.1,44,Rep (PR),observations,footer,17,17,17
+C.1,45,All,observations,footer,174,174,174
+C.1,46,All (2),observations,footer,174,174,174
+C.1,47,Dem (PD),q_test_p,footer,0.156,0.171,0.156
+C.1,48,Dem (PR),q_test_p,footer,0.297,0.297,0.297
+C.1,49,Ind (PD),q_test_p,footer,0.017,0.022,0.017
+C.1,50,Ind (PR),q_test_p,footer,0.516,0.516,0.516
+C.1,51,Rep (PD),q_test_p,footer,0.724,0.724,0.724
+C.1,52,Rep (PR),q_test_p,footer,0.326,0.326,0.326
+C.1,53,All,q_test_p,footer,0.064,0.066,0.064
+C.1,54,All (2),q_test_p,footer,0.081,0.111,0.081
+C.11,39,Dem (PD),observations,footer,41,41,41
+C.11,40,Dem (PR),observations,footer,17,17,17
+C.11,41,Ind (PD),observations,footer,41,41,41
+C.11,42,Ind (PR),observations,footer,17,17,17
+C.11,43,Rep (PD),observations,footer,41,41,41
+C.11,44,Rep (PR),observations,footer,17,17,17
+C.11,45,All,observations,footer,174,174,174
+C.11,46,All (2),observations,footer,174,174,174
+C.11,47,Dem (PD),q_test_p,footer,0.118,0.208,0.118
+C.11,48,Dem (PR),q_test_p,footer,0.330,0.330,0.330
+C.11,49,Ind (PD),q_test_p,footer,0.031,0.026,0.031
+C.11,50,Ind (PR),q_test_p,footer,0.613,0.613,0.613
+C.11,51,Rep (PD),q_test_p,footer,0.827,0.822,0.827
+C.11,52,Rep (PR),q_test_p,footer,0.456,0.456,0.456
+C.11,53,All,q_test_p,footer,0.064,0.065,0.064
+C.11,54,All (2),q_test_p,footer,0.082,0.104,0.082
+C.6,39,Dem (PD),observations,footer,41,41,41
+C.6,40,Dem (PR),observations,footer,17,17,17
+C.6,41,Ind (PD),observations,footer,41,41,41
+C.6,42,Ind (PR),observations,footer,17,17,17
+C.6,43,Rep (PD),observations,footer,41,41,41
+C.6,44,Rep (PR),observations,footer,17,17,17
+C.6,45,All,observations,footer,174,174,174
+C.6,46,All (2),observations,footer,174,174,174
+C.6,47,Dem (PD),q_test_p,footer,0.217,0.176,0.217
+C.6,48,Dem (PR),q_test_p,footer,0.314,0.314,0.314
+C.6,49,Ind (PD),q_test_p,footer,0.018,0.024,0.018
+C.6,50,Ind (PR),q_test_p,footer,0.383,0.383,0.383
+C.6,51,Rep (PD),q_test_p,footer,0.755,0.745,0.755
+C.6,52,Rep (PR),q_test_p,footer,0.359,0.359,0.359
+C.6,53,All,q_test_p,footer,0.066,0.062,0.066
+C.6,54,All (2),q_test_p,footer,0.100,0.105,0.100
+E.17,39,Dem (PD),observations,footer,41,41,41
+E.17,40,Dem (PR),observations,footer,17,17,17
+E.17,41,Ind (PD),observations,footer,41,41,41
+E.17,42,Ind (PR),observations,footer,17,17,17
+E.17,43,Rep (PD),observations,footer,41,41,41
+E.17,44,Rep (PR),observations,footer,17,17,17
+E.17,45,All,observations,footer,174,174,174
+E.17,46,All (2),observations,footer,174,174,174
+E.17,47,Dem (PD),q_test_p,footer,0.225,0.447,0.225
+E.17,48,Dem (PR),q_test_p,footer,0.367,0.367,0.367
+E.17,49,Ind (PD),q_test_p,footer,0.035,0.054,0.035
+E.17,50,Ind (PR),q_test_p,footer,0.758,0.758,0.758
+E.17,51,Rep (PD),q_test_p,footer,0.745,0.727,0.745
+E.17,52,Rep (PR),q_test_p,footer,0.370,0.370,0.370
+E.17,53,All,q_test_p,footer,0.083,0.083,0.083
+E.17,54,All (2),q_test_p,footer,0.100,0.146,0.100

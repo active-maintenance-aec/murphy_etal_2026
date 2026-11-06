@@ -40,6 +40,47 @@ stopifnot(all(figure_rows$p_value > 0.05))
 corrected_slope <- slope("sanders", "Favorability", "rating_index")
 stopifnot(slope("sanders", "Favorability", "rating_index", "p_value") < 0.05)
 two_ad_n <- n_distinct(pairwise$caseid)
+two_ad_arm <- read_rds(file.path(archive, "data", "exps.rds")) |> filter(assignment == "Two Ads")
+stopifnot(nrow(two_ad_arm) == two_ad_n, n_distinct(two_ad_arm$caseid) == two_ad_n, setequal(two_ad_arm$caseid, pairwise$caseid))
+two_ad_compared <- sum(!is.na(pairwise$cate_fav_correct))
+stopifnot(!any(map_lgl(two_ad_arm, \(column) sum(!is.na(column)) == 5070)))
+
+# The appendix tables that hold the same rows as entry 1's slope, refit in corrected_slopes.R.
+table_cells <- read_csv(here("maintained", "output", "corrected_favorability_tables.csv"), show_col_types = FALSE) |>
+  filter(part != "footer")
+cells_changed <- sum(table_cells$published != table_cells$sanders)
+columns_changed <- table_cells |> filter(published != sanders) |> distinct(column) |> pull(column)
+stopifnot(setequal(columns_changed, c("Dem (PD)", "Ind (PD)", "Rep (PD)", "All", "All (2)")))
+all_star_moves <- table_cells |>
+  filter(part == "estimate_cell", str_detect(published, fixed("*")) != str_detect(sanders, fixed("*")))
+index_star_moves <- all_star_moves |>
+  filter(term == "rating_estimate") |>
+  mutate(text = str_glue("{table} {column}, {published} to {sanders}") |> str_replace_all(fixed("*"), "\\*"))
+figure_labels <- c(slope("sanders", "Favorability", "negative_index"), slope("sanders", "Favorability", "negative_index", "std_error"),
+                   slope("sanders", "Favorability", "positive_index"), slope("sanders", "Favorability", "positive_index", "std_error"),
+                   slope("sanders", "Favorability", "intended"), slope("sanders", "Favorability", "intended", "std_error"))
+
+# The accuracy scripts repeat the rescale. Rerun with the line deleted, in corrected_accuracy.R.
+accuracy <- read_csv(here("maintained", "output", "corrected_accuracy.csv"), show_col_types = FALSE) |>
+  filter(str_starts(term, "cate_"))
+accuracy_changed <- accuracy |> filter(sprintf("%.3f", estimate_published) != sprintf("%.3f", estimate_corrected))
+stopifnot(all(str_starts(accuracy_changed$term, "cate_fav_")))
+accuracy_shift <- function(kind_name, term_name) {
+  hit <- accuracy |> filter(kind == kind_name, term == term_name)
+  stopifnot(nrow(hit) == 1)
+  str_glue("{sprintf('%.3f', hit$estimate_published)} becomes {sprintf('%.3f', hit$estimate_corrected)}")
+}
+overall_individual <- accuracy |> filter(kind == "individual", term %in% c("cate_fav_all_correct_pct_overall", "cate_vote_all_correct_pct_overall"))
+stopifnot(all(overall_individual$contains_half_corrected))
+democrats_overall <- accuracy |> filter(term == "cate_fav_dem_correct_pct_overall")
+stopifnot(nrow(democrats_overall) == 2, !any(democrats_overall$contains_half_published), all(democrats_overall$contains_half_corrected))
+
+# Entry 12: two rows of Table D.16 share a title.
+sacrifice <- ads |> filter(ad_title == "Sacrifice")
+sacrifice_arms <- exps_clean |> filter(ad_id %in% sacrifice$ad_id) |> count(ad_id, date)
+stopifnot(nrow(sacrifice) == 2, n_distinct(sacrifice$ad_sponsor) == 1, n_distinct(sacrifice$emotion_valence) == 1,
+          nrow(sacrifice_arms) == 2, n_distinct(sacrifice_arms$date) == 1, n_distinct(sacrifice_arms$n) == 1)
+treatments <- nrow(distinct(filter(exps_clean, ad_id != 3), ad_id, date))
 
 primary <- exps_clean |> filter(election_phase == "Primary Election", ad_id != 3) |> distinct(ad_id) |>
   left_join(ads, by = join_by(ad_id), relationship = "one-to-one")
@@ -63,15 +104,16 @@ entries <- tribble(
   "appendix, Section E",
   "The estimated slope of 0.034 indicates that an ad achieving the maximum rating of 1 relative to the minimum rating of 0 would be 3.4 points higher.",
   str_glue("The estimated slope of [[{sprintf('%.3f', corrected_slope)}]] indicates that an ad achieving the maximum rating of 1 relative to the minimum rating of 0 would be [[{sprintf('%.1f', 100 * corrected_slope)}]] points higher."),
-  str_glue("`clean_exps.R` applies `(favorBS_rev - 1)/4` twice, so Sanders favorability runs from -0.25 to 0 where the other candidates run from 0 to 1, and the 12 favorability estimates for the two pro-Sanders ads are a quarter of their size. The slope stays significant. The same rows enter Figure 2, where {shift('Favorability', 'negative_index', 'sanders')} and {shift('Favorability', 'positive_index', 'sanders')}, and Figure 3, where {shift('Favorability', 'intended', 'sanders')}. The favorability tables C.1, C.6, C.11, and E.17 carry the same rows. No Figure 2 or 3 slope becomes distinguishable from zero."),
-  "e10_fav_slope;e10_fav_points", str_c(sprintf("%.3f", corrected_slope), ";", sprintf("%.1f", 100 * corrected_slope)),
+  str_glue("`clean_exps.R` applies `(favorBS_rev - 1)/4` twice, so Sanders favorability runs from -0.25 to 0 where the other candidates run from 0 to 1, and the 12 favorability estimates for the two pro-Sanders ads are a quarter of their size. The slope stays significant. The same rows enter Figure 2, where {shift('Favorability', 'negative_index', 'sanders')} and {shift('Favorability', 'positive_index', 'sanders')}, and Figure 3, where {shift('Favorability', 'intended', 'sanders')}. Tables C.1, C.6, C.11, and E.17 hold the same rows, and refitting them changes {cells_changed} of their {nrow(table_cells)} printed coefficients and standard errors, in the {length(columns_changed)} columns that include the Sanders ads. Stars move on {nrow(all_star_moves)} coefficients. On the index coefficient the moves are {str_flatten_comma(index_star_moves$text, ', and ')}. No Figure 2 or 3 slope becomes distinguishable from zero. Both accuracy scripts repeat the same line, and there a CATE's scale can change which ad wins a matchup. Rerunning them without the line changes {nrow(accuracy_changed)} of the {nrow(accuracy)} favorability and vote choice statistics behind Figures E.11 and E.12, all on favorability. In Figure E.11 the overall estimate, {accuracy_shift('individual', 'cate_fav_all_correct_pct_overall')}, and the Democrats' estimate, {accuracy_shift('individual', 'cate_fav_dem_correct_pct_overall')}. In Figure E.12 the overall estimate, {accuracy_shift('group', 'cate_fav_all_correct_pct_overall')}, and the Democrats' estimate, {accuracy_shift('group', 'cate_fav_dem_correct_pct_overall')}. Both Democrats' intervals exclude 0.50 as published and contain it once corrected. The overall individual intervals still contain 0.50, so the appendix's conclusion that individuals are no better than random guessing stands."),
+  "e10_fav_slope;e10_fav_points;fig2_fav_neg_est;fig2_fav_neg_se;fig2_fav_pos_est;fig2_fav_pos_se;fig3_fav_est;fig3_fav_se",
+  str_c(c(sprintf("%.3f", corrected_slope), sprintf("%.1f", 100 * corrected_slope), sprintf("%.3f", figure_labels)), collapse = ";"),
 
   2, "quantity", "pipeline", "correction",
   "The two-advertisement sample",
   "appendix, Section E.1",
   "Our design allows us to analyze individual accuracy by subsetting our sample to individuals who viewed two advertisements (n = 5,070)",
   str_glue("Our design allows us to analyze individual accuracy by subsetting our sample to individuals who viewed two advertisements (n = [[{format(two_ad_n, big.mark = ',')}]])"),
-  "The count is the number of distinct respondents in the deposit's `observed_pairwise_frame.rds`.",
+  str_glue("The deposit's `exps.rds` assigns {format(two_ad_n, big.mark = ',')} respondents to the two-ad arm, one row each, and the analysis frame `observed_pairwise_frame.rds` holds all of them. Of these, {format(two_ad_compared, big.mark = ',')} enter the favorability comparison because they rated both ads. No column of that arm has 5,070 non-missing values, so the source of the printed count is unknown."),
   "two_ad_n", as.character(two_ad_n),
 
   3, "description", "pipeline", "note",
@@ -132,7 +174,23 @@ entries <- tribble(
 
   11, "wording", "reading", "brief", "Spelling and number", "appendix, Sections A, D, and E",
   "the emotion index components and the indicies. / the intended emotional valence of each add. / But before they provided a responses, they were reminded",
-  "the emotion index components and the [[indices]]. / the intended emotional valence of each [[ad]]. / But before they provided a [[response]], they were reminded", "", "", NA_character_
+  "the emotion index components and the [[indices]]. / the intended emotional valence of each [[ad]]. / But before they provided a [[response]], they were reminded", "", "", NA_character_,
+
+  12, "description", "reading", "note",
+  "Two ads named Sacrifice",
+  "published p. 4; appendix Table D.16",
+  "we measured the effects of 48 unique political advertisements on more than 28,000 individuals",
+  NA_character_,
+  str_glue("Table D.16 lists ads {str_flatten(sacrifice$ad_id, ' and ')} under the same title, valence, and tone. The deposit gives them the same sponsor and fields both in the wave of {format(sacrifice_arms$date[1], '%B %e, %Y') |> str_squish()}, with {sacrifice_arms$n[1]} subjects each. Nothing in the deposit shows whether these are two cuts or one spot. If they are one spot, the unique count is {nrow(ads) - 1} and the {treatments} total treatments are {treatments - 1}. This item corrects nothing."),
+  "", NA_character_,
+
+  13, "description", "pipeline", "brief",
+  "The estimator is weighted",
+  "published p. 7",
+  "We estimate conditional average treatment effects (CATEs) on candidate favorability and vote choice for each experiment using ordinary least squares regression (OLS) with robust standard errors.",
+  "We estimate conditional average treatment effects (CATEs) on candidate favorability and vote choice for each experiment using [[survey-weighted]] ordinary least squares regression (OLS) with robust standard errors.",
+  "`estimate_all_cates.R` passes the deposit's `weights` to `lm_robust`. Neither the article nor its appendix mentions weights.",
+  "", NA_character_
 ) |>
   mutate(across(c(title, published, corrected, note, claim_ids, corrected_values), as.character))
 
@@ -140,14 +198,17 @@ stopifnot(nrow(entries) == max(entries$entry), !anyDuplicated(entries$entry),
           all(is.na(entries$corrected) == (entries$form == "note")),
           all(!is.na(entries$corrected_values) == (entries$class == "quantity")))
 
-# Each corrected value must sit inside a marked span of its corrected sentence.
-values_in_spans <- function(corrected, values) {
+# Each corrected value must sit inside a marked span of its corrected sentence. A figure label that
+# no sentence prints must sit in the entry's note instead, which is entry 1's six label values.
+values_in_spans <- function(corrected, values, note) {
   spans <- str_remove_all(str_c(str_extract_all(corrected, "\\[\\[.*?\\]\\]")[[1]], collapse = " "), ",")
-  all(str_detect(spans, fixed(str_split(values, ";")[[1]])))
+  all(str_detect(str_c(spans, " ", note), fixed(str_split(values, ";")[[1]])))
 }
 quantities <- entries |> filter(class == "quantity")
-stopifnot(all(map2_lgl(quantities$corrected, quantities$corrected_values, values_in_spans)))
+stopifnot(all(pmap_lgl(list(quantities$corrected, quantities$corrected_values, quantities$note), values_in_spans)),
+          all(str_count(quantities$claim_ids, ";") == str_count(quantities$corrected_values, ";")))
 
+english_count <- c("one", "two", "three", "four", "five", "six")[sum(entries$form == "note")]
 bold <- function(x) str_replace_all(x, "\\[\\[(.*?)\\]\\]", "**\\1**")
 emit_entry <- function(n) {
   e <- entries |> filter(entry == n)
@@ -157,7 +218,7 @@ emit_entry <- function(n) {
 }
 ```
 
-This note lists corrections and three unresolved items in "Do Emotional Ads Persuade? Evidence from Real-Time Campaign Advertising Experiments," published in *Political Communication*, doi [10.1080/10584609.2026.2726266](https://doi.org/10.1080/10584609.2026.2726266). Page numbers are the journal's. **No slope in Figures 2, 3, or 4 becomes distinguishable from zero under any correction here, so the article's central null is unchanged.**
+This note lists corrections and `r english_count` unresolved items in "Do Emotional Ads Persuade? Evidence from Real-Time Campaign Advertising Experiments," published in *Political Communication*, doi [10.1080/10584609.2026.2726266](https://doi.org/10.1080/10584609.2026.2726266). Page numbers are the journal's. **No slope in Figures 2, 3, or 4 becomes distinguishable from zero under any correction here, so the article's central null is unchanged.**
 
 ```{r article-entries, results="asis"}
 walk(entries$entry, emit_entry)

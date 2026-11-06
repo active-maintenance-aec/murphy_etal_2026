@@ -128,7 +128,9 @@ stopifnot(
   with(ground_truth, all(!is.na(defect_locus)[which(match_rewrite == 0 | holds == 0)])),
   with(ground_truth, all(claim_id[which(match_rewrite == 1 & !is.na(defect_locus))] %in% spine_ids)),
   # The spine's ids all name an extraction row.
-  all(spine_ids %in% ground_truth$claim_id)
+  all(spine_ids %in% ground_truth$claim_id),
+  # A number that disagrees with the page must be one the spine already reports.
+  all(ground_truth$claim_id[which(ground_truth$match_rewrite == 0)] %in% spine_ids)
 )
 write_csv(ground_truth, here::here("ground_truth", "murphy_etal_2026_ground_truth.csv"))
 
@@ -162,6 +164,7 @@ float_coverage <- cells |>
   summarise(published_numbers = sum(!is.na(value_paper)), covered = sum(agrees), .by = table) |>
   add_row(table = "D.16", published_numbers = nrow(d16_published), covered = d16_agrees$agrees)
 write_csv(float_coverage, here::here("ground_truth", "float_coverage.csv"))
+stopifnot(all(cells$agrees), d16_agrees$n == nrow(d16_published), d16_agrees$agrees == nrow(d16_published))
 print(float_coverage, n = 20)
 print(filter(cells, !agrees), n = 30)
 print(count(ground_truth, match_rewrite, holds, defect_locus))

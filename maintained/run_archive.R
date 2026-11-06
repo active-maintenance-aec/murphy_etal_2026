@@ -2,8 +2,9 @@
 # Output: maintained/archive_run/ (gitignored), maintained/output/archive_claims.txt
 # Depends on: original_extracted/ (rebuilt by download_original.R)
 # Description: Copy the deposit to a scratch directory, strip every derived file, and run its own
-#   run_all.R there. About 25 minutes. Set MURPHY_REUSE_ARCHIVE_RUN=TRUE to reuse a finished run.
+#   run_all.R there. About 13 minutes. Set MURPHY_REUSE_ARCHIVE_RUN=TRUE to reuse a finished run.
 
+library(tidyverse)
 library(here)
 here::i_am("maintained/run_archive.R")
 
@@ -21,5 +22,6 @@ if (!(Sys.getenv("MURPHY_REUSE_ARCHIVE_RUN") == "TRUE" && finished)) {
   unlink(derived)
   log_lines <- withr::with_dir(archive, system2("Rscript", "run_all.R", stdout = TRUE, stderr = TRUE))
   stopifnot(is.null(attr(log_lines, "status")))
-  writeLines(log_lines, here::here("maintained", "output", "archive_run.log"))
+  write_lines(str_replace_all(log_lines, "/\\S*/replication_archive", "<deposit>"),
+              here::here("maintained", "output", "archive_run.log"))
 }

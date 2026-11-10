@@ -1,0 +1,19 @@
+# Active maintenance check: reruns run_all.R on current R and CRAN packages every
+# 8 weeks, in this repository's own slot. The shared logic, and the schedule for
+# every repository, live in active-maintenance-aec/maintenance.
+name: maintenance
+
+on:
+  schedule:
+    - cron: "47 6 * * 5"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  check:
+    uses: active-maintenance-aec/maintenance/.github/workflows/check.yml@main
+    with:
+      phase: 2

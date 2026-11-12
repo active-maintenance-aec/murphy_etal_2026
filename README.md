@@ -13,6 +13,8 @@
 - [Figure verification](#figure-verification)
 - [R environment](#r-environment)
 
+**Archived at Zenodo:** [doi:10.5281/zenodo.24168406](https://doi.org/10.5281/zenodo.24168406). This DOI always resolves to the latest release of the maintained version.
+
 *Drafted by Claude Opus 5.5 under the supervision of Alex Coppock.*
 
 # Summary

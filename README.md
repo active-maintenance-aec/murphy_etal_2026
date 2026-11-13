@@ -7,13 +7,16 @@
 - [Errata](#errata)
   - [Read and not filed](#read-and-not-filed)
 - [Ground truth](#ground-truth)
-- [The extraction and the two
-  instruments](#the-extraction-and-the-two-instruments)
+- [The extraction and the
+  instruments](#the-extraction-and-the-instruments)
 - [Maintained rewrite](#maintained-rewrite)
 - [Figure verification](#figure-verification)
 - [R environment](#r-environment)
 
-**Archived at Zenodo:** [doi:10.5281/zenodo.24168406](https://doi.org/10.5281/zenodo.24168406). This DOI always resolves to the latest release of the maintained version.
+**Archived at Zenodo:**
+[doi:10.5281/zenodo.24168406](https://doi.org/10.5281/zenodo.24168406).
+This DOI always resolves to the latest release of the maintained
+version.
 
 *Drafted by Claude Opus 5.5 under the supervision of Alex Coppock.*
 
@@ -78,12 +81,14 @@ on MD5 and byte size. It ran in two passes.
 | In place | The deposit as shipped | 27 | 0 |
 | Stripped | Every file in `output/`, `data/estimates/`, and both cleaned data files removed | 27 | 0 |
 
-Each script’s verdict in both passes is in
-`maintained/output/archive_script_verdicts.csv`. The in-place pass
-overwrote every derived file, which leaves six input files as the only
-ones older than the run. That pass was run once from an unzipped copy,
-and its log is `maintained/output/archive_inplace_run.log`. `run_all.R`
-repeats only the stripped pass.
+Each script’s outcome in both passes is in
+`ground_truth/archive_run_status.csv`, and what the stripped pass did to
+each file of the deposit is in `ground_truth/archive_overwrites.csv`.
+The in-place pass overwrote every derived file, which leaves six input
+files as the only ones older than the run. That pass was run once from
+an unzipped copy, and its log is
+`maintained/output/archive_inplace_run.log`. `run_all.R` repeats only
+the stripped pass.
 
 The stripped rerun’s 60 output files compare with the deposited ones as
 follows.
@@ -100,12 +105,14 @@ follows.
 
 - The four CSVs that differ do so by at most 1.6e-09, which is numerical
   noise.
-- Three PDFs differ beyond their timestamp and R version. Figures A.2
-  and E.7, and their PNGs, use `position_jitter` with no seed, so they
-  differ from one run to the next. Figure 1’s PDF differs in one text
-  coordinate by 0.01 points, 65.35 against 65.36, read from its
-  decompressed stream. The other PNGs differ in at most NA percent of
-  channel values, from rasterization, and their PDFs agree.
+- Three PDFs differ beyond their timestamp and R version: Figure 1,
+  Figure A.2, and Figure E.7. Figures A.2 and E.7, and their PNGs, use
+  `position_jitter` with no seed, so they differ from one run to the
+  next. Figure 1 places its ad labels with `ggrepel` and no seed, so its
+  PDF can differ from one run to the next; in the run of 2026-11-12 it
+  differed in one text coordinate by 0.01 points. The other PNGs differ
+  in at most 0.01 percent of channel values, from rasterization, and
+  their PDFs agree.
 
 The deposit’s audit script ends with this line:
 
@@ -123,21 +130,21 @@ The note lists 13 entries: 3 corrected quantities, 7 brief corrections
 to the text, and 3 notes that correct nothing because neither the page
 nor the deposit settles what was intended.
 
-| Entry | Item | Form |
-|---:|:---|:---|
-| 1 | Sanders favorability is rescaled twice | correction |
-| 2 | The two-advertisement sample | correction |
-| 3 | Turnout and issue estimates take the sign of the ad’s valence | correction |
-| 4 | Note 5 on the primary ads | note |
-| 5 | Three attack ads are coded positive | note |
-| 6 | Whose favorability | brief |
-| 7 | The border item | brief |
-| 8 | The note under Figure E.10 | brief |
-| 9 | A dropped word | brief |
-| 10 | A missing construction | brief |
-| 11 | Spelling and number | brief |
-| 12 | Two ads named Sacrifice | note |
-| 13 | The estimator is weighted | brief |
+| Entry | Item                                                          | Form  |
+|------:|:--------------------------------------------------------------|:------|
+|     1 | Sanders favorability is rescaled twice                        | full  |
+|     2 | The two-advertisement sample                                  | full  |
+|     3 | Turnout and issue estimates take the sign of the ad’s valence | full  |
+|     4 | Note 5 on the primary ads                                     | note  |
+|     5 | Three attack ads are coded positive                           | note  |
+|     6 | Whose favorability                                            | brief |
+|     7 | The border item                                               | brief |
+|     8 | The note under Figure E.10                                    | brief |
+|     9 | Two ads named Sacrifice                                       | note  |
+|    10 | The estimator is weighted                                     | brief |
+|    11 | A dropped word                                                | brief |
+|    12 | A missing construction                                        | brief |
+|    13 | Spelling and number                                           | brief |
 
 ## Read and not filed
 
@@ -162,11 +169,12 @@ later reader need not rediscover them.
 `ground_truth/murphy_etal_2026_ground_truth.csv` holds 45 claims: 42
 numbers compared with the rerun and 3 descriptive statements given a
 computed verdict. `value_paper` is what the page prints, and
-`value_rewrite` is the rerun’s value. Rows the errata reports carry a
-`defect_locus`. The descriptive verdicts are 0 holding and 3 not
-holding.
+`value_rewrite` is the rerun’s value. `value_script` repeats it, because
+the rerun is the deposit’s own code. Rows the errata reports carry a
+`defect_locus` and a `disposition`. The descriptive verdicts are 0
+holding and 3 not holding.
 
-# The extraction and the two instruments
+# The extraction and the instruments
 
 `published_claims.csv` covers the slopes printed in Figures 2, 3, and 4,
 the Figure E.10 slope, and the counts and reliabilities in the text. It
@@ -175,7 +183,10 @@ deposit’s own audit checks. `published_appendix_values.csv` and
 `published_table_d16.csv` cover the appendix’s regression tables and its
 ad-coding table.
 
-The two instruments are the comparison in `build_ground_truth.R` and the
+The instruments are the comparison in `build_ground_truth.R`,
+`maintained/in_text_claims.R`, which checks every extracted claim
+against the rerun, the corrected refits, and the errata spine with
+`excheckr` and stops `run_all.R` on any failing verdict, and the
 deposit’s own `in_text_claims.R`, which is reported above. Neither can
 detect an error that the page and the code share, and the largest
 entries in the errata are of that kind. They came from reading the code
@@ -183,8 +194,8 @@ and from a range table of the cleaned variables.
 
 `build_ground_truth.R` halts on a broken join, a claim with no value or
 verdict, a spine id with no extraction row, a number that disagrees with
-the page and is absent from the spine, and any disagreeing appendix
-cell.
+the page and is absent from the spine, a `paper_internal` row with no
+disposition, and any disagreeing appendix cell.
 
 | Float             | Published numbers | Agreeing |
 |-------------------|-------------------|----------|
@@ -192,7 +203,7 @@ cell.
 | Table D.16        | 48                | 48       |
 
 `ground_truth/negative_controls.R` breaks one input at a time and
-requires the matching gate to stop the build. All 15 of 15 runs behave
+requires the matching gate to stop the build. All 16 of 16 runs behave
 as required. These runs show that the gates fire on these faults and say
 nothing about faults not tried.
 
@@ -220,7 +231,7 @@ Nobody compared the published figures with the rerun’s by eye.
 
 |          | Deposit                      | This rerun                   |
 |----------|------------------------------|------------------------------|
-| R        | R version 4.6.0 (2026-04-24) | R version 4.6.1 (2026-06-24) |
+| R        | R version 4.6.0 (2026-04-24) | R version 4.6.2 (2026-10-29) |
 | estimatr | NA                           | NA                           |
 
 The differences above are the only drift measured between these

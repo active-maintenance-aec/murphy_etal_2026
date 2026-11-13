@@ -1,46 +1,46 @@
-claim_id,table_figure,claim,claim_type,value_paper,digits
-abstract_weeks,abstract,29 weeks of experiments (distinct wave dates),pipeline,29,0
-abstract_ads,abstract,48 authentic campaign ads,pipeline,48,0
-design_treatments,p. 4,58 total ad treatments,pipeline,58,0
-valence_pro_clinton,p. 4,six pro-Clinton ads,pipeline,6,0
-valence_pro_trump,p. 4,three pro-Trump ads,pipeline,3,0
-valence_anti_clinton,p. 4,11 anti-Clinton ads,pipeline,11,0
-valence_anti_trump,p. 4,23 anti-Trump ads,pipeline,23,0
-valence_pro_kasich,p. 4,one pro-Kasich ad,pipeline,1,0
-valence_pro_cruz,p. 4,two pro-Cruz ads,pipeline,2,0
-valence_pro_sanders,p. 4,two pro-Sanders ads,pipeline,2,0
-alpha_positive,p. 4,Cronbach's alpha of the positive scale,pipeline,0.89,2
-alpha_negative,p. 4,Cronbach's alpha of the negative scale,pipeline,0.72,2
-contrast_ads,p. 5,five contrast ads,pipeline,5,0
-contrast_trump,p. 5,Trump ran three of the contrast ads,pipeline,3,0
-fav_tests,p. 7,58 favorability tests,pipeline,58,0
-fav_estimates,p. 7,174 favorability estimates,pipeline,174,0
-vote_tests,p. 7,34 vote choice tests,pipeline,34,0
-vote_estimates,p. 7,102 vote choice estimates,pipeline,102,0
-fig2_fav_neg_est,Figure 2,favorability on negative index,pipeline,0.014,3
-fig2_fav_neg_se,Figure 2,favorability on negative index,pipeline,0.017,3
-fig2_vote_neg_est,Figure 2,vote choice on negative index,pipeline,-0.005,3
-fig2_vote_neg_se,Figure 2,vote choice on negative index,pipeline,0.041,3
-fig2_fav_pos_est,Figure 2,favorability on positive index,pipeline,0.008,3
-fig2_fav_pos_se,Figure 2,favorability on positive index,pipeline,0.014,3
-fig2_vote_pos_est,Figure 2,vote choice on positive index,pipeline,0.022,3
-fig2_vote_pos_se,Figure 2,vote choice on positive index,pipeline,0.021,3
-fig3_fav_est,Figure 3,favorability on intended index,pipeline,-0.004,3
-fig3_fav_se,Figure 3,favorability on intended index,pipeline,0.013,3
-fig3_vote_est,Figure 3,vote choice on intended index,pipeline,-0.023,3
-fig3_vote_se,Figure 3,vote choice on intended index,pipeline,0.024,3
-fig4_issue_neg_est,Figure 4,target issue on negative index,pipeline,0.052,3
-fig4_issue_neg_se,Figure 4,target issue on negative index,pipeline,0.059,3
-fig4_turnout_neg_est,Figure 4,turnout on negative index,pipeline,-0.017,3
-fig4_turnout_neg_se,Figure 4,turnout on negative index,pipeline,0.021,3
-fig4_issue_pos_est,Figure 4,target issue on positive index,pipeline,-0.039,3
-fig4_issue_pos_se,Figure 4,target issue on positive index,pipeline,0.041,3
-fig4_turnout_pos_est,Figure 4,turnout on positive index,pipeline,0.064,3
-fig4_turnout_pos_se,Figure 4,turnout on positive index,pipeline,0.035,3
-e10_alpha,Appendix E,Cronbach's alpha of the rating index,pipeline,0.91,2
-e10_fav_slope,Appendix E,slope of favorability on the rating index,pipeline,0.034,3
-e10_fav_points,Appendix E,the same slope in points,pipeline,3.4,1
-two_ad_n,Appendix E,subjects who viewed two advertisements,pipeline,5070,0
-fn5_nearly_all_positive,note 5,share of primary-period ads with positive intended tone is nearly all,descriptive,1,0
-fn5_sponsor_party,note 5,primary ads coded as support for the sponsor's party: anti-Trump ads from Republican sponsors are not coded pro-Democratic,descriptive,1,0
-attack_coded_negative,p. 5,every attack ad is coded negative in tone,descriptive,1,0
+claim_id,location,claim_type,claim,value_paper,digits,comparison,expect,needs_block,notes
+abstract_weeks,abstract,pipeline,29 weeks of experiments (distinct wave dates),29,0,==,NA,TRUE,NA
+abstract_ads,abstract,pipeline,48 authentic campaign ads,48,0,==,NA,TRUE,NA
+design_treatments,p. 4,pipeline,58 total ad treatments,58,0,==,NA,TRUE,NA
+valence_pro_clinton,p. 4,pipeline,six pro-Clinton ads,6,0,==,NA,TRUE,NA
+valence_pro_trump,p. 4,pipeline,three pro-Trump ads,3,0,==,NA,TRUE,NA
+valence_anti_clinton,p. 4,pipeline,11 anti-Clinton ads,11,0,==,NA,TRUE,NA
+valence_anti_trump,p. 4,pipeline,23 anti-Trump ads,23,0,==,NA,TRUE,NA
+valence_pro_kasich,p. 4,pipeline,one pro-Kasich ad,1,0,==,NA,TRUE,NA
+valence_pro_cruz,p. 4,pipeline,two pro-Cruz ads,2,0,==,NA,TRUE,NA
+valence_pro_sanders,p. 4,pipeline,two pro-Sanders ads,2,0,==,NA,TRUE,NA
+alpha_positive,p. 4,pipeline,Cronbach's alpha of the positive scale,0.89,2,==,NA,TRUE,NA
+alpha_negative,p. 4,pipeline,Cronbach's alpha of the negative scale,0.72,2,==,NA,TRUE,NA
+contrast_ads,p. 5,pipeline,five contrast ads,5,0,==,NA,TRUE,NA
+contrast_trump,p. 5,pipeline,Trump ran three of the contrast ads,3,0,==,NA,TRUE,NA
+fav_tests,p. 7,pipeline,58 favorability tests,58,0,==,NA,TRUE,NA
+fav_estimates,p. 7,pipeline,174 favorability estimates,174,0,==,NA,TRUE,NA
+vote_tests,p. 7,pipeline,34 vote choice tests,34,0,==,NA,TRUE,NA
+vote_estimates,p. 7,pipeline,102 vote choice estimates,102,0,==,NA,TRUE,NA
+fig2_fav_neg_est,Figure 2,pipeline,favorability on negative index,0.014,3,==,NA,TRUE,NA
+fig2_fav_neg_se,Figure 2,pipeline,favorability on negative index,0.017,3,==,NA,TRUE,NA
+fig2_vote_neg_est,Figure 2,pipeline,vote choice on negative index,-0.005,3,==,NA,TRUE,NA
+fig2_vote_neg_se,Figure 2,pipeline,vote choice on negative index,0.041,3,==,NA,TRUE,NA
+fig2_fav_pos_est,Figure 2,pipeline,favorability on positive index,0.008,3,==,NA,TRUE,NA
+fig2_fav_pos_se,Figure 2,pipeline,favorability on positive index,0.014,3,==,NA,TRUE,NA
+fig2_vote_pos_est,Figure 2,pipeline,vote choice on positive index,0.022,3,==,NA,TRUE,NA
+fig2_vote_pos_se,Figure 2,pipeline,vote choice on positive index,0.021,3,==,NA,TRUE,NA
+fig3_fav_est,Figure 3,pipeline,favorability on intended index,-0.004,3,==,NA,TRUE,NA
+fig3_fav_se,Figure 3,pipeline,favorability on intended index,0.013,3,==,NA,TRUE,NA
+fig3_vote_est,Figure 3,pipeline,vote choice on intended index,-0.023,3,==,NA,TRUE,NA
+fig3_vote_se,Figure 3,pipeline,vote choice on intended index,0.024,3,==,NA,TRUE,NA
+fig4_issue_neg_est,Figure 4,pipeline,target issue on negative index,0.052,3,==,NA,TRUE,NA
+fig4_issue_neg_se,Figure 4,pipeline,target issue on negative index,0.059,3,==,NA,TRUE,NA
+fig4_turnout_neg_est,Figure 4,pipeline,turnout on negative index,-0.017,3,==,NA,TRUE,NA
+fig4_turnout_neg_se,Figure 4,pipeline,turnout on negative index,0.021,3,==,NA,TRUE,NA
+fig4_issue_pos_est,Figure 4,pipeline,target issue on positive index,-0.039,3,==,NA,TRUE,NA
+fig4_issue_pos_se,Figure 4,pipeline,target issue on positive index,0.041,3,==,NA,TRUE,NA
+fig4_turnout_pos_est,Figure 4,pipeline,turnout on positive index,0.064,3,==,NA,TRUE,NA
+fig4_turnout_pos_se,Figure 4,pipeline,turnout on positive index,0.035,3,==,NA,TRUE,NA
+e10_alpha,Appendix E,pipeline,Cronbach's alpha of the rating index,0.91,2,==,NA,TRUE,NA
+e10_fav_slope,Appendix E,pipeline,slope of favorability on the rating index,0.034,3,==,NA,TRUE,NA
+e10_fav_points,Appendix E,pipeline,the same slope in points,3.4,1,==,NA,TRUE,NA
+two_ad_n,Appendix E,pipeline,subjects who viewed two advertisements,5070,0,==,NA,TRUE,NA
+fn5_nearly_all_positive,note 5,descriptive,share of primary-period ads with positive intended tone is nearly all,1,0,==,NA,TRUE,NA
+fn5_sponsor_party,note 5,descriptive,primary ads coded as support for the sponsor's party: anti-Trump ads from Republican sponsors are not coded pro-Democratic,1,0,==,NA,TRUE,NA
+attack_coded_negative,p. 5,descriptive,every attack ad is coded negative in tone,1,0,==,NA,TRUE,NA

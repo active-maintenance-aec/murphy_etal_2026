@@ -63,16 +63,13 @@ The following objects are masked from ‘package:tidyr’:
 Loading required package: metadat
 Loading required package: numDeriv
 
-Loading the 'metafor' package (version 5.0-1). For an
+Loading the 'metafor' package (version 5.2-1). For an
 introduction to the package please type: help(metafor)
 
 Registered S3 methods overwritten by 'clubSandwich':
   method                from    
-  bread.iv_robust       estimatr
-  bread.lm_robust       estimatr
   bread.mlm             sandwich
   model.frame.iv_robust estimatr
-  model.frame.lm_robust estimatr
           29  weeks of experiments   (text: 29)
           48  authentic campaign ads tested   (text: 48)
       28,679  subjects in the analysis sample (article says approximately 28,000)

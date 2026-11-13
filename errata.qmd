@@ -124,9 +124,11 @@ entries <- tribble(
   "Target Issue Support, Negative Index: [[0.052 (0.059)]]. Turnout Intentions, Negative Index: [[-0.017 (0.021)]]. Target Issue Support, Positive Index: [[-0.039 (0.041)]]. Turnout Intentions, Positive Index: [[0.064 (0.035)]].",
   str_glue("Target Issue Support, Negative Index: [[{label('sign', 'Target Issue Support', 'negative_index')}]]. Turnout Intentions, Negative Index: [[{label('sign', 'Turnout Intentions', 'negative_index')}]]. Target Issue Support, Positive Index: [[{label('sign', 'Target Issue Support', 'positive_index')}]]. Turnout Intentions, Positive Index: [[{label('sign', 'Turnout Intentions', 'positive_index')}]]."),
   str_glue("`estimate_all_cates.R` multiplies every outcome by -1 for an anti ad, which suits candidate favorability and vote choice. It also flips turnout, so an anti ad that raises turnout plots as lowering it, in {sign_count('Turnout Intentions')} of {sign_total('Turnout Intentions')} estimates. For issues the deposit's `ad_id_to_base_by_hand.csv` carries a `direction` column that no script reads, and it disagrees with the sign used in {sign_count('Target Issue Support')} of {sign_total('Target Issue Support')} estimates. The corrected labels refit the same CATEs with no flip on turnout and with `direction` on issues (`maintained/corrected_slopes.R`). This correction counts a rise in turnout intentions as a rise whichever candidate the ad attacks, although an ad might be meant to demobilize. All four slopes remain indistinguishable from zero, so the sentence on p. 10 that the slopes of all four meta-regression lines are close to zero and not statistically significant stands. The appendix tables were not refit, and their turnout and issue columns carry the published signs."),
-  "fig4_issue_neg_est;fig4_issue_neg_se;fig4_turnout_neg_est;fig4_turnout_neg_se;fig4_issue_pos_est;fig4_issue_pos_se;fig4_turnout_pos_est;fig4_turnout_pos_se",
+  # The negative-index turnout standard error prints 0.021 before and after the correction, so the
+  # entry does not name it as a corrected claim.
+  "fig4_issue_neg_est;fig4_issue_neg_se;fig4_turnout_neg_est;fig4_issue_pos_est;fig4_issue_pos_se;fig4_turnout_pos_est;fig4_turnout_pos_se",
   str_c(c(sprintf("%.3f", slope("sign", "Target Issue Support", "negative_index")), sprintf("%.3f", slope("sign", "Target Issue Support", "negative_index", "std_error")),
-          sprintf("%.3f", slope("sign", "Turnout Intentions", "negative_index")), sprintf("%.3f", slope("sign", "Turnout Intentions", "negative_index", "std_error")),
+          sprintf("%.3f", slope("sign", "Turnout Intentions", "negative_index")),
           sprintf("%.3f", slope("sign", "Target Issue Support", "positive_index")), sprintf("%.3f", slope("sign", "Target Issue Support", "positive_index", "std_error")),
           sprintf("%.3f", slope("sign", "Turnout Intentions", "positive_index")), sprintf("%.3f", slope("sign", "Turnout Intentions", "positive_index", "std_error"))), collapse = ";"),
 
@@ -210,8 +212,13 @@ values_in_spans <- function(corrected, values, note) {
   spans <- str_remove_all(str_c(str_extract_all(corrected, "\\[\\[.*?\\]\\]")[[1]], collapse = " "), ",")
   all(str_detect(str_c(spans, " ", note), fixed(str_split(values, ";")[[1]])))
 }
+# The gate's result is written to the spine as values_in_spans, one logical per entry and NA for an
+# entry with no values. Every value here is on the scale the page prints, so the gate stops on FALSE.
+placed <- pmap_lgl(list(entries$corrected, entries$corrected_values, entries$note),
+                   \(corrected, values, note) if (is.na(values)) NA else values_in_spans(corrected, values, note))
+entries <- entries |> mutate(values_in_spans = placed)
 quantities <- entries |> filter(class == "quantity")
-stopifnot(all(pmap_lgl(list(quantities$corrected, quantities$corrected_values, quantities$note), values_in_spans)),
+stopifnot(all(quantities$values_in_spans),
           all(str_count(quantities$claim_ids, ";") == str_count(quantities$corrected_values, ";")))
 
 english_count <- c("one", "two", "three", "four", "five", "six")[sum(entries$form == "note")]

@@ -27,13 +27,16 @@ here::i_am("README.qmd")
 
 output <- \(file) here::here("maintained", "output", file)
 gt <- read_csv(here::here("ground_truth", "murphy_etal_2026_ground_truth.csv"),
-               col_types = cols(.default = col_character(), value_rewrite = col_double(),
-                                match_rewrite = col_double(), holds = col_double()))
+               col_types = cols(.default = col_character(), value_script = col_double(), match = col_logical(),
+                                value_rewrite = col_double(), match_rewrite = col_logical(), holds = col_logical()))
 floats <- read_csv(here::here("ground_truth", "float_coverage.csv"), show_col_types = FALSE)
+regression_tables <- str_starts(floats$float, "Table") & floats$float != "Table D.16"
 controls <- read_csv(here::here("ground_truth", "negative_controls.csv"), show_col_types = FALSE)
 spine <- read_csv(here::here("errata_entries.csv"), show_col_types = FALSE)
 comparison <- read_csv(output("archive_output_comparison.csv"), show_col_types = FALSE)
-verdicts <- read_csv(output("archive_script_verdicts.csv"), show_col_types = FALSE)
+run_status <- read_csv(here::here("ground_truth", "archive_run_status.csv"), show_col_types = FALSE)
+clean_scripts <- \(pass_name) sum(run_status$outcome[run_status$pass == pass_name] == "clean")
+failed_scripts <- \(pass_name) sum(run_status$outcome[run_status$pass == pass_name] != "clean")
 slopes <- read_csv(output("corrected_slopes.csv"), show_col_types = FALSE)
 manifest <- read_csv(here::here("original_manifest.csv"), show_col_types = FALSE)
 members <- read_csv(here::here("original_members_manifest.csv"), show_col_types = FALSE)
@@ -46,6 +49,12 @@ environment_line <- function(path, pattern) {
 }
 info_deposit <- here::here("original_extracted", "replication_archive", "output", "session_info.txt")
 info_rerun <- here::here("maintained", "archive_run", "replication_archive", "output", "session_info.txt")
+differing_pdfs <- comparison |>
+  filter(str_ends(file, "pdf"), verdict == "differs") |>
+  pull(file) |>
+  str_match("figure_([a-e]?)([0-9]+)_") |>
+  (\(m) str_c("Figure ", str_to_upper(m[, 2]), if_else(m[, 2] == "", "", "."), m[, 3]))()
+english_number <- \(n) c("no", "one", "two", "three", "four", "five")[n + 1]
 csv_gap <- comparison |> filter(str_ends(file, "csv"), !is.na(measure)) |> pull(measure) |> max()
 figure_slopes <- slopes |> filter(index != "rating_index", index != "intended" | dv %in% c("Favorability", "Vote Choice"))
 ```
@@ -56,8 +65,8 @@ figure_slopes <- slopes |> filter(index != "rating_index", index != "intended" |
 
 This repository reruns the deposit of an article on whether the emotional content of campaign ads predicts their persuasive effects, compares the article and its appendix with the rerun, and lists the errors found.
 
-- **The deposit runs.** All `r nrow(verdicts)` of its scripts finish without error, both in place and after every derived file is removed.
-- **The page matches the deposit.** `r sum(gt$match_rewrite == 1, na.rm = TRUE)` of `r sum(!is.na(gt$match_rewrite))` extracted numbers agree at the printed precision, and so do all `r sum(floats$covered)` appendix table cells checked. The one disagreement is the two-ad sample size.
+- **The deposit runs.** All `r n_distinct(run_status$script)` of its scripts finish without error, both in place and after every derived file is removed.
+- **The page matches the deposit.** `r sum(gt$match_rewrite, na.rm = TRUE)` of `r sum(!is.na(gt$match_rewrite))` extracted numbers agree at the printed precision, and so do all `r sum(floats$reproduced_by_rewrite[str_starts(floats$float, "Table")])` appendix table cells checked. The one disagreement is the two-ad sample size.
 - **Matching the deposit does not make the numbers right.** Sanders favorability is rescaled twice in the deposit's cleaning script, which the article prints faithfully. See [Errata](#errata).
 - **The article's central null holds under every correction computed here.** None of the `r nrow(figure_slopes)` refits of the Figure 2, 3, and 4 slopes reaches p < 0.05. These are the corrections listed in the errata and not all conceivable ones.
 - **This repository holds no independent rewrite.** Every `value_rewrite` comes from rerunning the deposit's own code, so an error in that code that is not reported below would pass here too.
@@ -82,10 +91,10 @@ The deposit is `r nrow(manifest)` zip with `r nrow(members)` members, all of whi
 
 | Pass | Starting point | Scripts OK | Scripts failed |
 |---|---|---|---|
-| In place | The deposit as shipped | `r sum(verdicts$in_place == "OK")` | `r sum(verdicts$in_place != "OK")` |
-| Stripped | Every file in `output/`, `data/estimates/`, and both cleaned data files removed | `r sum(verdicts$stripped == "OK")` | `r sum(verdicts$stripped != "OK")` |
+| In place | The deposit as shipped | `r clean_scripts("as_shipped")` | `r failed_scripts("as_shipped")` |
+| Stripped | Every file in `output/`, `data/estimates/`, and both cleaned data files removed | `r clean_scripts("stripped")` | `r failed_scripts("stripped")` |
 
-Each script's verdict in both passes is in `maintained/output/archive_script_verdicts.csv`. The in-place pass overwrote every derived file, which leaves six input files as the only ones older than the run. That pass was run once from an unzipped copy, and its log is `maintained/output/archive_inplace_run.log`. `run_all.R` repeats only the stripped pass.
+Each script's outcome in both passes is in `ground_truth/archive_run_status.csv`, and what the stripped pass did to each file of the deposit is in `ground_truth/archive_overwrites.csv`. The in-place pass overwrote every derived file, which leaves six input files as the only ones older than the run. That pass was run once from an unzipped copy, and its log is `maintained/output/archive_inplace_run.log`. `run_all.R` repeats only the stripped pass.
 
 The stripped rerun's `r nrow(comparison)` output files compare with the deposited ones as follows.
 
@@ -96,7 +105,7 @@ comparison |>
 ```
 
 - The four CSVs that differ do so by at most `r sprintf("%.1e", csv_gap)`, which is numerical noise.
-- Three PDFs differ beyond their timestamp and R version. Figures A.2 and E.7, and their PNGs, use `position_jitter` with no seed, so they differ from one run to the next. Figure 1's PDF differs in one text coordinate by 0.01 points, 65.35 against 65.36, read from its decompressed stream. The other PNGs differ in at most `r sprintf("%.2f", 100 * max(comparison$measure[str_ends(comparison$file, "png") & !str_detect(comparison$file, "a2_|e7_")]))` percent of channel values, from rasterization, and their PDFs agree.
+- `r str_to_sentence(english_number(length(differing_pdfs)))` PDFs differ beyond their timestamp and R version: `r str_flatten_comma(differing_pdfs, ", and ")`. Figures A.2 and E.7, and their PNGs, use `position_jitter` with no seed, so they differ from one run to the next. Figure 1 places its ad labels with `ggrepel` and no seed, so its PDF can differ from one run to the next; in the run of 2026-11-12 it differed in one text coordinate by 0.01 points. The other PNGs differ in at most `r sprintf("%.2f", 100 * max(comparison$measure[str_ends(comparison$file, "png") & !str_detect(comparison$file, "a2_|e7_")], na.rm = TRUE))` percent of channel values, from rasterization, and their PDFs agree.
 
 The deposit's audit script ends with this line:
 
@@ -106,7 +115,7 @@ Read it with care. "Asserted" counts every row, including the `r derived_rows` t
 
 # Errata {#errata}
 
-The note lists `r nrow(spine)` entries: `r sum(spine$form == "correction")` corrected quantities, `r sum(spine$form == "brief")` brief corrections to the text, and `r sum(spine$form == "note")` notes that correct nothing because neither the page nor the deposit settles what was intended.
+The note lists `r nrow(spine)` entries: `r sum(spine$class == "quantity")` corrected quantities, `r sum(spine$form == "brief")` brief corrections to the text, and `r sum(spine$form == "note")` notes that correct nothing because neither the page nor the deposit settles what was intended.
 
 ```{r errata-table}
 spine |>
@@ -124,20 +133,20 @@ These were read and left out of the errata. They are recorded so that a later re
 
 # Ground truth
 
-`ground_truth/murphy_etal_2026_ground_truth.csv` holds `r nrow(gt)` claims: `r sum(gt$claim_type == "pipeline")` numbers compared with the rerun and `r sum(gt$claim_type == "descriptive")` descriptive statements given a computed verdict. `value_paper` is what the page prints, and `value_rewrite` is the rerun's value. Rows the errata reports carry a `defect_locus`. The descriptive verdicts are `r sum(gt$holds == 1, na.rm = TRUE)` holding and `r sum(gt$holds == 0, na.rm = TRUE)` not holding.
+`ground_truth/murphy_etal_2026_ground_truth.csv` holds `r nrow(gt)` claims: `r sum(gt$claim_type == "pipeline")` numbers compared with the rerun and `r sum(gt$claim_type == "descriptive")` descriptive statements given a computed verdict. `value_paper` is what the page prints, and `value_rewrite` is the rerun's value. `value_script` repeats it, because the rerun is the deposit's own code. Rows the errata reports carry a `defect_locus` and a `disposition`. The descriptive verdicts are `r sum(gt$holds, na.rm = TRUE)` holding and `r sum(!gt$holds, na.rm = TRUE)` not holding.
 
-# The extraction and the two instruments
+# The extraction and the instruments
 
 `published_claims.csv` covers the slopes printed in Figures 2, 3, and 4, the Figure E.10 slope, and the counts and reliabilities in the text. It leaves uncovered most of the matchup percentages and wave sizes that the deposit's own audit checks. `published_appendix_values.csv` and `published_table_d16.csv` cover the appendix's regression tables and its ad-coding table.
 
-The two instruments are the comparison in `build_ground_truth.R` and the deposit's own `in_text_claims.R`, which is reported above. Neither can detect an error that the page and the code share, and the largest entries in the errata are of that kind. They came from reading the code and from a range table of the cleaned variables.
+The instruments are the comparison in `build_ground_truth.R`, `maintained/in_text_claims.R`, which checks every extracted claim against the rerun, the corrected refits, and the errata spine with `excheckr` and stops `run_all.R` on any failing verdict, and the deposit's own `in_text_claims.R`, which is reported above. Neither can detect an error that the page and the code share, and the largest entries in the errata are of that kind. They came from reading the code and from a range table of the cleaned variables.
 
-`build_ground_truth.R` halts on a broken join, a claim with no value or verdict, a spine id with no extraction row, a number that disagrees with the page and is absent from the spine, and any disagreeing appendix cell.
+`build_ground_truth.R` halts on a broken join, a claim with no value or verdict, a spine id with no extraction row, a number that disagrees with the page and is absent from the spine, a `paper_internal` row with no disposition, and any disagreeing appendix cell.
 
 | Float | Published numbers | Agreeing |
 |---|---|---|
-| Regression tables | `r sum(floats$published_numbers[floats$table != "D.16"])` | `r sum(floats$covered[floats$table != "D.16"])` |
-| Table D.16 | `r floats$published_numbers[floats$table == "D.16"]` | `r floats$covered[floats$table == "D.16"]` |
+| Regression tables | `r sum(floats$published_numbers[regression_tables])` | `r sum(floats$reproduced_by_rewrite[regression_tables])` |
+| Table D.16 | `r floats$published_numbers[floats$float == "Table D.16"]` | `r floats$reproduced_by_rewrite[floats$float == "Table D.16"]` |
 
 `ground_truth/negative_controls.R` breaks one input at a time and requires the matching gate to stop the build. All `r sum(controls$outcome == controls$expected)` of `r nrow(controls)` runs behave as required. These runs show that the gates fire on these faults and say nothing about faults not tried.
 

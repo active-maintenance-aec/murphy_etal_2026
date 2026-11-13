@@ -1,2 +1,2 @@
-file,dataverse_file_id,md5_served,md5_published,bytes
-replication_archive.zip,14230507,7d88f9004b0194a61c81fcacc7c1df9e,7d88f9004b0194a61c81fcacc7c1df9e,39434878
+file,directory_label,dataverse_file_id,md5_served,md5_published,bytes
+replication_archive.zip,,14230507,7d88f9004b0194a61c81fcacc7c1df9e,7d88f9004b0194a61c81fcacc7c1df9e,39434878

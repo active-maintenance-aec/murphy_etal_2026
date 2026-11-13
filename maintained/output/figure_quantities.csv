@@ -1,0 +1,17 @@
+float,script,printed,plotted
+Figure 1,figure_1_emotion_by_partisanship.R,0,174
+Figure 2,figure_2_emotion_cate_favorability_vote.R,8,552
+Figure 3,figure_3_intended_emotion_cate_favorability_vote.R,4,276
+Figure 4,figure_4_emotion_cate_issue_turnout.R,8,408
+Figure A.1,figure_a1_emotion_scree.R,0,4
+Figure A.2,figure_a2_emotion_correlations.R,15,21
+Figure B.3,figure_b3_emotion_by_party.R,0,348
+Figure C.4,figure_c4_stretch_issue_turnout_emotion.R,8,672
+Figure C.5,figure_c5_issue_turnout_intended_emotion.R,4,204
+Figure C.6,figure_c6_stretch_issue_turnout_intended_emotion.R,4,336
+Figure E.10,figure_e10_cates_from_ratings.R,4,276
+Figure E.11,figure_e11_individual_accuracy.R,28,28
+Figure E.12,figure_e12_group_accuracy.R,28,28
+Figure E.7,figure_e7_rating_correlations.R,15,21
+Figure E.8,figure_e8_rating_scree.R,0,5
+Figure E.9,figure_e9_ratings_by_party.R,0,348

@@ -6,6 +6,7 @@ build_ground_truth.R,a descriptive claim with no verdict,halted,halted
 build_ground_truth.R,a duplicated claim id,halted,halted
 build_ground_truth.R,a spine id with no extraction row,halted,halted
 build_ground_truth.R,a mismatch the spine does not report,halted,halted
+build_ground_truth.R,a paper_internal row the spine does not name,halted,halted
 build_ground_truth.R,an appendix cell mistyped,halted,halted
 build_ground_truth.R,a Table D.16 code changed,halted,halted
 values_in_spans,"entry 1, filed values",passed,passed

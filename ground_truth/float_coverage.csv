@@ -1,5 +1,5 @@
 float,published_numbers,covered,reproduced_by_rewrite,reproduced_by_archive,plotted,plotted_reproduced,note
-Figure 1,0,0,0,0,174,0,"Places its ad labels with ggrepel and no seed, so a label's position can differ from the deposit's from one run to the next."
+Figure 1,0,0,0,0,174,174,NA
 Figure 2,8,8,8,8,552,552,NA
 Figure 3,4,4,4,4,276,276,NA
 Figure 4,8,8,8,8,408,408,NA

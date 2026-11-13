@@ -96,23 +96,24 @@ follows.
 | verdict                                        | files |
 |:-----------------------------------------------|------:|
 | byte-identical                                 |    28 |
-| differs                                        |     3 |
+| differs                                        |     2 |
 | environment record, not compared               |     1 |
 | identical but for its comment header           |     1 |
-| identical but for timestamp and R version      |    13 |
+| identical but for timestamp and R version      |    14 |
 | numbers differ by at most measure              |     4 |
 | share of channel values that differ is measure |    10 |
 
 - The four CSVs that differ do so by at most 1.6e-09, which is numerical
   noise.
-- Three PDFs differ beyond their timestamp and R version: Figure 1,
-  Figure A.2, and Figure E.7. Figures A.2 and E.7, and their PNGs, use
-  `position_jitter` with no seed, so they differ from one run to the
-  next. Figure 1 places its ad labels with `ggrepel` and no seed, so its
-  PDF can differ from one run to the next; in the run of 2026-11-12 it
-  differed in one text coordinate by 0.01 points. The other PNGs differ
-  in at most 0.01 percent of channel values, from rasterization, and
-  their PDFs agree.
+- Two PDFs differ beyond their timestamp and R version: Figure A.2 and
+  Figure E.7. Figures A.2 and E.7, and their PNGs, use `position_jitter`
+  with no seed, so they differ from one run to the next. Figure 1 places
+  its ad labels with `ggrepel` and no seed, and unseeded its PDF missed
+  the deposit’s in one text coordinate by 0.01 points in 3 of 15 runs,
+  so `run_archive.R` sets a seed in the rerun’s copy of that script, the
+  one change made to the deposit’s code. The other PNGs differ in at
+  most 0.01 percent of channel values, from rasterization, and their
+  PDFs agree.
 
 The deposit’s audit script ends with this line:
 
@@ -231,7 +232,7 @@ Nobody compared the published figures with the rerun’s by eye.
 
 |          | Deposit                      | This rerun                   |
 |----------|------------------------------|------------------------------|
-| R        | R version 4.6.0 (2026-04-24) | R version 4.6.2 (2026-10-29) |
+| R        | R version 4.6.0 (2026-04-24) | R version 4.6.1 (2026-06-24) |
 | estimatr | NA                           | NA                           |
 
 The differences above are the only drift measured between these

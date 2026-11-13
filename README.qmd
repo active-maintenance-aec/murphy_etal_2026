@@ -105,7 +105,7 @@ comparison |>
 ```
 
 - The four CSVs that differ do so by at most `r sprintf("%.1e", csv_gap)`, which is numerical noise.
-- `r str_to_sentence(english_number(length(differing_pdfs)))` PDFs differ beyond their timestamp and R version: `r str_flatten_comma(differing_pdfs, ", and ")`. Figures A.2 and E.7, and their PNGs, use `position_jitter` with no seed, so they differ from one run to the next. Figure 1 places its ad labels with `ggrepel` and no seed, so its PDF can differ from one run to the next; in the run of 2026-11-12 it differed in one text coordinate by 0.01 points. The other PNGs differ in at most `r sprintf("%.2f", 100 * max(comparison$measure[str_ends(comparison$file, "png") & !str_detect(comparison$file, "a2_|e7_")], na.rm = TRUE))` percent of channel values, from rasterization, and their PDFs agree.
+- `r str_to_sentence(english_number(length(differing_pdfs)))` PDFs differ beyond their timestamp and R version: `r str_flatten_comma(differing_pdfs, ", and ")`. Figures A.2 and E.7, and their PNGs, use `position_jitter` with no seed, so they differ from one run to the next. Figure 1 places its ad labels with `ggrepel` and no seed, and unseeded its PDF missed the deposit's in one text coordinate by 0.01 points in 3 of 15 runs, so `run_archive.R` sets a seed in the rerun's copy of that script, the one change made to the deposit's code. The other PNGs differ in at most `r sprintf("%.2f", 100 * max(comparison$measure[str_ends(comparison$file, "png") & !str_detect(comparison$file, "a2_|e7_")], na.rm = TRUE))` percent of channel values, from rasterization, and their PDFs agree.
 
 The deposit's audit script ends with this line:
 

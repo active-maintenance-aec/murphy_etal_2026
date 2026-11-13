@@ -206,7 +206,7 @@ claim_floats <- ground_truth |>
 
 # Why a figure's rerun PDF differs from the deposit's, written where the difference was measured.
 figure_notes <- c(
-  "Figure 1" = "Places its ad labels with ggrepel and no seed, so a label's position can differ from the deposit's from one run to the next.",
+  "Figure 1" = "Places its ad labels with ggrepel and no seed; the rerun seeds it, and a label's position still differs from the deposit's.",
   "Figure A.2" = "Jittered with no seed, so the rerun's points differ from the deposit's from one run to the next.",
   "Figure E.7" = "Jittered with no seed, so the rerun's points differ from the deposit's from one run to the next."
 )

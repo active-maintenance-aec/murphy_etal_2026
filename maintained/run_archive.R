@@ -20,6 +20,11 @@ if (!(Sys.getenv("MURPHY_REUSE_ARCHIVE_RUN") == "TRUE" && finished)) {
                list.files(file.path(archive, "data", "estimates"), full.names = TRUE),
                file.path(archive, "data", c("exps_clean.rds", "individual_ratings_clean.rds")))
   unlink(derived)
+  # The deposit places Figure 1's ad labels with ggrepel and no seed. Unseeded, the rerun's PDF
+  # missed the deposit's by a hundredth of a point in one label in 3 of 15 runs on 2026-11-13;
+  # each seeded run matched it. The seed goes into the rerun's copy; the deposit is untouched.
+  figure_1_script <- file.path(archive, "code", "figure_1_emotion_by_partisanship.R")
+  write_lines(c("set.seed(343)", read_lines(figure_1_script)), figure_1_script)
   log_lines <- withr::with_dir(archive, system2("Rscript", "run_all.R", stdout = TRUE, stderr = TRUE))
   stopifnot(is.null(attr(log_lines, "status")))
   write_lines(str_replace_all(log_lines, "/\\S*/replication_archive", "<deposit>"),

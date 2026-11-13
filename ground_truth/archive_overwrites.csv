@@ -9,7 +9,7 @@ stripped,data/estimates/observed_pairwise_frame.rds,rebuilt,TRUE
 stripped,data/estimates/ratings_pid.rds,rebuilt,TRUE
 stripped,data/exps_clean.rds,rebuilt,TRUE
 stripped,data/individual_ratings_clean.rds,rebuilt,TRUE
-stripped,output/figures/figure_1_emotion_by_partisanship.pdf,rebuilt,FALSE
+stripped,output/figures/figure_1_emotion_by_partisanship.pdf,rebuilt,TRUE
 stripped,output/figures/figure_1_emotion_by_partisanship.png,rebuilt,FALSE
 stripped,output/figures/figure_2_emotion_cate_favorability_vote.pdf,rebuilt,TRUE
 stripped,output/figures/figure_2_emotion_cate_favorability_vote.png,rebuilt,FALSE
@@ -69,3 +69,4 @@ stripped,output/tables/table_c9_issue_negative_emotion.tex,rebuilt,TRUE
 stripped,output/tables/table_d16_ad_emotion_coding.tex,rebuilt,TRUE
 stripped,output/tables/table_e17_favorability_ratings.tex,rebuilt,TRUE
 stripped,output/tables/table_e18_vote_choice_ratings.tex,rebuilt,TRUE
+stripped,code/figure_1_emotion_by_partisanship.R,overwritten,FALSE

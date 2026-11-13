@@ -1,6 +1,6 @@
 file,verdict,measure
-figures/figure_1_emotion_by_partisanship.pdf,differs,NA
-figures/figure_1_emotion_by_partisanship.png,share of channel values that differ is measure,4.862298195631529e-5
+figures/figure_1_emotion_by_partisanship.pdf,identical but for timestamp and R version,NA
+figures/figure_1_emotion_by_partisanship.png,share of channel values that differ is measure,2.6020892687559356e-5
 figures/figure_2_emotion_cate_favorability_vote.pdf,identical but for timestamp and R version,NA
 figures/figure_2_emotion_cate_favorability_vote.png,share of channel values that differ is measure,1.3929432390970853e-4
 figures/figure_3_intended_emotion_cate_favorability_vote.pdf,identical but for timestamp and R version,NA
@@ -10,7 +10,7 @@ figures/figure_4_emotion_cate_issue_turnout.png,share of channel values that dif
 figures/figure_a1_emotion_scree.pdf,identical but for timestamp and R version,NA
 figures/figure_a1_emotion_scree.png,byte-identical,NA
 figures/figure_a2_emotion_correlations.pdf,differs,NA
-figures/figure_a2_emotion_correlations.png,share of channel values that differ is measure,0.10976863905325444
+figures/figure_a2_emotion_correlations.png,share of channel values that differ is measure,0.10969526627218935
 figures/figure_b3_emotion_by_party.pdf,identical but for timestamp and R version,NA
 figures/figure_b3_emotion_by_party.png,byte-identical,NA
 figures/figure_c4_stretch_issue_turnout_emotion.pdf,identical but for timestamp and R version,NA
@@ -26,7 +26,7 @@ figures/figure_e11_individual_accuracy.png,byte-identical,NA
 figures/figure_e12_group_accuracy.pdf,identical but for timestamp and R version,NA
 figures/figure_e12_group_accuracy.png,byte-identical,NA
 figures/figure_e7_rating_correlations.pdf,differs,NA
-figures/figure_e7_rating_correlations.png,share of channel values that differ is measure,0.13156508875739645
+figures/figure_e7_rating_correlations.png,share of channel values that differ is measure,0.13146429980276134
 figures/figure_e8_rating_scree.pdf,identical but for timestamp and R version,NA
 figures/figure_e8_rating_scree.png,byte-identical,NA
 figures/figure_e9_ratings_by_party.pdf,identical but for timestamp and R version,NA
